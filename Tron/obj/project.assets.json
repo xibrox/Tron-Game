@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\baton\\source\\repos\\Tron\\Tron\\Tron.csproj",
+      "projectUniqueName": "C:\\Users\\baton\\Source\\Repos\\Tron-Game\\Tron\\Tron.csproj",
       "projectName": "Tron",
-      "projectPath": "C:\\Users\\baton\\source\\repos\\Tron\\Tron\\Tron.csproj",
+      "projectPath": "C:\\Users\\baton\\Source\\Repos\\Tron-Game\\Tron\\Tron.csproj",
       "packagesPath": "C:\\Users\\baton\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\baton\\source\\repos\\Tron\\Tron\\obj\\",
+      "outputPath": "C:\\Users\\baton\\Source\\Repos\\Tron-Game\\Tron\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\baton\\AppData\\Roaming\\NuGet\\NuGet.Config",

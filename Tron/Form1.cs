@@ -95,6 +95,20 @@ namespace Tron {
             players1.Add(new Player(Brushes.Red, size, location, 3));
         }
 
+        public void SetPlayer1TailUpLeft() {
+            var size = new Size(player1.Size.Width, player1.Size.Height);
+            var location = new Point(player1.Location.X - 10, player1.Location.Y + 10);
+
+            players1.Add(new Player(Brushes.Red, size, location, 3));
+        }
+
+        public void SetPlayer1TailUpRight() {
+            var size = new Size(player1.Size.Width, player1.Size.Height);
+            var location = new Point(player1.Location.X + 10, player1.Location.Y + 10);
+
+            players1.Add(new Player(Brushes.Red, size, location, 3));
+        }
+
         public void SetPlayer1TailDown() {
             var size = new Size(player1.Size.Width, player1.Size.Height);
             var location = new Point(player1.Location.X, player1.Location.Y - 10);
@@ -259,7 +273,7 @@ namespace Tron {
             }
             if (position1 == Position1.A && player2.Location.X > boundary.Left) {
                 direction.X--;
-                SetPlayer2TailLeft();
+                SetPlayer1TailLeft();
             }
             if (position1 == Position1.D && player2.Location.X < (boundary.Right - player2.Size.Width)) {
                 direction.X++;
