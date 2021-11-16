@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace Tron {
     public partial class Form1 : Form {
@@ -28,8 +29,6 @@ namespace Tron {
         private Position position;
         private Position1 position1;
 
-        System.Media.SoundPlayer soundPlayer = new System.Media.SoundPlayer("C:/Users/baton/source/repos/Tron/Tron/Red_Sun_in_the_Sky.wav");
-
         public Form1() {
             InitializeComponent();
             Init();
@@ -38,6 +37,7 @@ namespace Tron {
             position1 = Position1.Null;
             SetPlayer2();
             SetPlayer1();
+            playSound();
         }
 
         public void Init() {
@@ -49,16 +49,20 @@ namespace Tron {
             this.pbCanvas.Size = this.Size;
         }
 
+        private void playSound() {
+            SoundPlayer soundPlayer = new SoundPlayer(@"C:\Users\baton\source\repos\Tron\Tron\Shawn Mendes - There's Nothing Holdin' Me Back[Acapella].wav");
+        }
+
         public void SetPlayer1() {
             var size = new Size(13, 13);
-            var location = new Point(pbCanvas.Width / 3, pbCanvas.Size.Height / 2);
+            var location = new Point(pbCanvas.Width - pbCanvas.Width / 3, pbCanvas.Size.Height / 2);
 
             player1 = new Player(Brushes.Red, size, location, 3);
         }
         
         public void SetPlayer2() {
             var size = new Size(13, 13);
-            var location = new Point(rnd.Next(pbCanvas.Width / 2, pbCanvas.Width), pbCanvas.Size.Height / 2);
+            var location = new Point(pbCanvas.Width / 3, pbCanvas.Size.Height / 2);
 
             player2 = new Player(Brushes.Blue, size, location, 3);
         }
@@ -84,9 +88,65 @@ namespace Tron {
             players1.Add(new Player(Brushes.Red, size, location, 3));
         }
 
+        public void SetPlayer1TailUp() {
+            var size = new Size(player1.Size.Width, player1.Size.Height);
+            var location = new Point(player1.Location.X, player1.Location.Y + 10);
+
+            players1.Add(new Player(Brushes.Red, size, location, 3));
+        }
+
+        public void SetPlayer1TailDown() {
+            var size = new Size(player1.Size.Width, player1.Size.Height);
+            var location = new Point(player1.Location.X, player1.Location.Y - 10);
+
+            players1.Add(new Player(Brushes.Red, size, location, 3));
+        }
+
+        public void SetPlayer1TailLeft() {
+            var size = new Size(player1.Size.Width, player1.Size.Height);
+            var location = new Point(player1.Location.X + 10, player1.Location.Y);
+
+            players1.Add(new Player(Brushes.Red, size, location, 3));
+        }
+
+        public void SetPlayer1TailRight() {
+            var size = new Size(player1.Size.Width, player1.Size.Height);
+            var location = new Point(player1.Location.X - 10, player1.Location.Y);
+
+            players1.Add(new Player(Brushes.Red, size, location, 3));
+        }
+
         public void SetPlayer2Tail() {
             var size = new Size(player2.Size.Width, player2.Size.Height);
             var location = new Point(player2.Location.X, player2.Location.Y);
+
+            players2.Add(new Player(Brushes.Blue, size, location, 3));
+        }
+
+        public void SetPlayer2TailUp() {
+            var size = new Size(player2.Size.Width, player2.Size.Height);
+            var location = new Point(player2.Location.X, player2.Location.Y + 10);
+
+            players2.Add(new Player(Brushes.Blue, size, location, 3));
+        }
+
+        public void SetPlayer2TailDown() {
+            var size = new Size(player2.Size.Width, player2.Size.Height);
+            var location = new Point(player2.Location.X, player2.Location.Y - 10);
+
+            players2.Add(new Player(Brushes.Blue, size, location, 3));
+        }
+
+        public void SetPlayer2TailLeft() {
+            var size = new Size(player2.Size.Width, player2.Size.Height);
+            var location = new Point(player2.Location.X + 10, player2.Location.Y);
+
+            players2.Add(new Player(Brushes.Blue, size, location, 3));
+        }
+
+        public void SetPlayer2TailRight() {
+            var size = new Size(player2.Size.Width, player2.Size.Height);
+            var location = new Point(player2.Location.X - 10, player2.Location.Y);
 
             players2.Add(new Player(Brushes.Blue, size, location, 3));
         }
@@ -165,27 +225,24 @@ namespace Tron {
 
             if (position == Position.Up && player1.Location.Y > boundary.Up) {
                 direction.Y--;
-                SetPlayer1Tail();
+                SetPlayer1TailUp();
             }
             if (position == Position.Down && player1.Location.Y < (boundary.Down - player1.Size.Height)) {
                 direction.Y++;
-                SetPlayer1Tail();
+                SetPlayer1TailDown();
             }
             if (position == Position.Left && player1.Location.X > boundary.Left) {
                 direction.X--;
-                SetPlayer1Tail();
+                SetPlayer1TailLeft();
             }
             if (position == Position.Right && player1.Location.X < (boundary.Right - player1.Size.Width)) {
                 direction.X++;
-                SetPlayer1Tail();
-            }
-
-            for (int i = 0; i < players2.Count - 100; i++) {
-
-
+                SetPlayer1TailRight();
             }
 
             player1.Move(direction);
+
+            this.pbCanvas.Refresh();
         }
 
         private void Timer1_Tick(object sender, EventArgs e) {
@@ -194,19 +251,19 @@ namespace Tron {
 
             if (position1 == Position1.W && player2.Location.Y > boundary.Up) {
                 direction.Y--;
-                SetPlayer2Tail();
+                SetPlayer2TailUp();
             }
             if (position1 == Position1.S && player2.Location.Y < (boundary.Down - player2.Size.Height)) {
                 direction.Y++;
-                SetPlayer2Tail();
+                SetPlayer2TailDown();
             }
             if (position1 == Position1.A && player2.Location.X > boundary.Left) {
                 direction.X--;
-                SetPlayer2Tail();
+                SetPlayer2TailLeft();
             }
             if (position1 == Position1.D && player2.Location.X < (boundary.Right - player2.Size.Width)) {
                 direction.X++;
-                SetPlayer2Tail();
+                SetPlayer2TailRight();
             }
 
             player2.Move(direction);
@@ -216,40 +273,67 @@ namespace Tron {
             this.pbCanvas.Refresh();
         }
 
+        private void Score1() {
+            if (true) {
+                var playerScore = 0;
+
+                playerScore++;
+                label1.Text = "Red Score: " + playerScore.ToString();
+            }
+        }
+
+        private void Score2() {
+            if (true) {
+                var playerScore = 0;
+
+                playerScore++;
+                label2.Text = "Blue Score: " + playerScore.ToString();
+            }
+        }
+
         private void HandleCollision() {
             var players1Delete = new List<Player>();
             var players2Delete = new List<Player>();
-            int Count = 0;
 
             foreach (var item in players1) {
                 if (player2.Intersect(item.Rectangle)) {
                     players2Delete.Add(item);
-                    Count += 1;
-                    label1.Text = "Red Score: " + (++Count).ToString();
+                }
+                if (player1.Intersect(item.Rectangle)) {
+                    players1Delete.Add(item);
                 }
             }
 
             foreach (var item in players2) {
                 if (player1.Intersect(item.Rectangle)) {
                     players1Delete.Add(item);
-                    if (int.TryParse(label1.Text, out Count)) {
-                        Count++;
-                    }
-                    label2.Text = "Blue Score: " + (++Count).ToString();
+                }
+                if (player2.Intersect(item.Rectangle)) {
+                    players2Delete.Add(item);
                 }
             }
 
             foreach (var item in players1Delete) {
                 if (item is Player) {
                     players1.Clear();
-                    SetPlayer1Death();
+                    players2.Clear();
+                    SetPlayer1();
+                    SetPlayer2();
+                    position = Position.Null;
+                    position1 = Position1.Null;
+                    Score2();
                 }
             }
 
             foreach (var item in players2Delete) {
                 if (item is Player) {
                     players2.Clear();
-                    SetPlayer2Death();
+                    players1.Clear();
+                    SetPlayer2();
+                    SetPlayer1();
+                    position1 = Position1.Null;
+                    position = Position.Null;
+                    Score1();
                 }
             }
         }

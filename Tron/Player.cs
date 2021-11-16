@@ -23,15 +23,15 @@ namespace Tron {
         }
 
         public void Draw(Graphics graphics) {
-            graphics.FillEllipse(Brush, Rectangle);
+            graphics.FillRectangle(Brush, Rectangle);
         }
 
         public void Move(Point direction) {
             Location = new Point(Location.X + direction.X * Speed, Location.Y + direction.Y * Speed);
         }
 
-        public bool Intersect(Rectangle rect) {
-            return Rectangle.IntersectsWith(rect);
+        public bool Intersect(Rectangle rectangle) {
+            return Rectangle.IntersectsWith(rectangle);
         }
     }
 }
