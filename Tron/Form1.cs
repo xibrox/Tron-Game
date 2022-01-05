@@ -16,7 +16,13 @@ namespace Tron {
         Player player2;
         List<Player> players1 = new List<Player>();
         List<Player> players2 = new List<Player>();
+        List<Bonus> bonusSpeed = new List<Bonus>();
+        List<Bonus> bonusSlow = new List<Bonus>();
         Random rnd = new Random();
+        private int redScore = 0;
+        private int blueScore = 0;
+
+        //Epic Enums
 
         enum Position {
             Left, Right, Up, Down, Null
@@ -29,6 +35,8 @@ namespace Tron {
         private Position position;
         private Position1 position1;
 
+        //Some usefull staff 
+
         public Form1() {
             InitializeComponent();
             Init();
@@ -37,20 +45,35 @@ namespace Tron {
             position1 = Position1.Null;
             SetPlayer2();
             SetPlayer1();
-            playSound();
         }
+        
+        //Canvas Settings
 
         public void Init() {
             this.Size = Screen.PrimaryScreen.WorkingArea.Size;
             this.Bounds = Screen.PrimaryScreen.Bounds;
             this.WindowState = FormWindowState.Maximized;
 
-            this.pbCanvas.BackColor = Color.Black;
+            this.pbCanvas.BackColor = Color.FromArgb(0, 0, 0);
             this.pbCanvas.Size = this.Size;
         }
 
-        private void playSound() {
-            SoundPlayer soundPlayer = new SoundPlayer(@"C:\Users\baton\source\repos\Tron\Tron\Shawn Mendes - There's Nothing Holdin' Me Back[Acapella].wav");
+        //Some of deez are not in use
+        //But if I will use them in future
+        //I will use them :)
+
+        public void SetBonusSpeed() {
+            var size = new Size(16, 16);
+            var location = new Point(rnd.Next(0, pbCanvas.Width), rnd.Next(label1.Size.Height + 18, pbCanvas.Height - 18));
+
+            bonusSpeed.Add(new Bonus(Brushes.Violet, size, location));
+        }
+
+        public void SetBonusSlow() {
+            var size = new Size(16, 16);
+            var location = new Point(rnd.Next(0, pbCanvas.Width), rnd.Next(label1.Size.Height + 18, pbCanvas.Height - 18));
+
+            bonusSlow.Add(new Bonus(Brushes.Gray, size, location));
         }
 
         public void SetPlayer1() {
@@ -151,6 +174,8 @@ namespace Tron {
             players2.Add(new Player(Brushes.Blue, size, location, 3));
         }
 
+        //Drawing on Canvas
+
         private void pbCanvas_Paint(object sender, PaintEventArgs e) {
             var g = e.Graphics;
 
@@ -162,15 +187,27 @@ namespace Tron {
                 item.Draw(g);
             }
 
+            foreach (var item in bonusSpeed) {
+                item.Draw(g);
+            }
+
+            foreach (var item in bonusSlow) {
+                item.Draw(g);
+            }
+
             player1.Draw(g);
 
             player2.Draw(g);
         }
 
+        //Movement for Players
+
         private void Form1_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Escape) {
                 this.Close();
             }
+
+            //Movement for Player2
 
             if (Keys.Up == e.KeyCode) {
                 if(position != Position.Down) {
@@ -192,6 +229,8 @@ namespace Tron {
                     position = Position.Right;
                 }
             }
+
+            //Movement for Player1
 
             if (Keys.W == e.KeyCode) {
                 if (position1 != Position1.S) {
@@ -216,12 +255,15 @@ namespace Tron {
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e) {
-            
+            //I am Lazy to Delete this   
         }
+
+        //1 tick = 10 ms
 
         private void Timer_Tick(object sender, EventArgs e) {
             var direction = new Point();
-            Boundary boundary = new Boundary(0, pbCanvas.Size.Width, label1.Size.Height + player1.Size.Height, pbCanvas.Size.Height);
+
+            //Spawning Tail for Player1
 
             if (position == Position.Up) {
                 direction.Y--;
@@ -247,9 +289,12 @@ namespace Tron {
             this.pbCanvas.Refresh();
         }
 
+        //1 tick = 10 ms
+
         private void Timer1_Tick(object sender, EventArgs e) {
             var direction = new Point();
-            Boundary boundary = new Boundary(0, pbCanvas.Size.Width, label1.Size.Height + player2.Size.Height, pbCanvas.Size.Height);
+
+            //Spawning Tail for Player2
 
             if (position1 == Position1.W) {
                 direction.Y--;
@@ -275,45 +320,99 @@ namespace Tron {
             this.pbCanvas.Refresh();
         }
 
-        private void Score1() {
-            var displayScore = 0;
+        //1 tick = 10 000 ms (10 seconds)
 
-            displayScore++;
-            label1.Text = "Red Score: " + displayScore;
+        private void TimerBonus_Tick(object sender, EventArgs e) {
+            SetBonusSpeed();
+
+            HandleCollision();
+
+            this.pbCanvas.Refresh();
+        }
+
+        //1 tick = 12 000 ms (12 seconds)
+
+        private void TimerSlowBonus_Tick(object sender, EventArgs e) {
+            SetBonusSlow();
+
+            HandleCollision();
+
+            this.pbCanvas.Refresh();
+        }
+
+        //1 tick = 5 000 ms (5 seconds)
+
+        private void TimerBonusLength_Tick(object sender, EventArgs e) {
+            if (player1.Speed > 3) {
+                player1.Speed = 3;
+                TimerBonusLength.Enabled = false;
+            }
+        }
+
+        //1 tick = 5 000 ms (5 seconds)
+
+        private void TimerSlowBonusLength_Tick(object sender, EventArgs e) {
+            if (player1.Speed > 3) {
+                player1.Speed = 3;
+                TimerSlowBonusLength.Enabled = false;
+            }
+        }
+
+        //not working score IDK why
+
+        private void Score1() {
+            redScore++;
+            label1.Text = "Red Score: " + redScore;
         }
 
         private void Score2() {
-            var displayScore = 0;
-
-            displayScore++;
-            label2.Text = "Blue Score: " + displayScore;
+            blueScore++;
+            label2.Text = "Blue Score: " + blueScore;
         }
 
         private void HandleCollision() {
             var players1Delete = new List<Player>();
             var players2Delete = new List<Player>();
-            Boundary boundary = new Boundary(0, pbCanvas.Size.Width, label1.Size.Height + player2.Size.Height, pbCanvas.Size.Height);
+
+            var bonus1SpeedEffect = new List<Bonus>();
+            var bonus2SpeedEffect = new List<Bonus>();
+
+            var bonusSlowEffect = new List<Bonus>();
+
+            Boundary boundary = new Boundary(0, pbCanvas.Size.Width, 0, pbCanvas.Size.Height);
+
+            List<int> ones = Enumerable.Repeat(1, players1.Count).ToList();
+            List<int> ones1 = Enumerable.Repeat(1, players2.Count).ToList();
+
+            //Collision for Player1
 
             foreach (var item in players1) {
                 if (player2.Intersect(item.Rectangle)) {
                     players2Delete.Add(item);
                 }
+
                 if (player1.Intersect(item.Rectangle)) {
                     players1Delete.Add(item);
                 }
+
                 if (player1.Location.Y < boundary.Up) {
                     players1Delete.Add(item);
                 }
+
                 if (player1.Location.Y > (boundary.Down - player2.Size.Height)) {
                     players1Delete.Add(item);
                 }
+
                 if (player1.Location.X < boundary.Left) {
                     players1Delete.Add(item);
                 }
+
                 if (player1.Location.X > (boundary.Right - player1.Size.Width)) {
                     players1Delete.Add(item);
                 }
             }
+
+            //Collision for Player2
 
             foreach (var item in players2) {
                 if (player1.Intersect(item.Rectangle)) {
@@ -336,6 +435,69 @@ namespace Tron {
                 }
             }
 
+            //Speed Bonus
+
+            foreach (var item in bonusSpeed) {
+                if (player1.Intersect(item.Rectangle)) {
+                    bonus1SpeedEffect.Add(item);
+                }
+
+                if (player2.Intersect(item.Rectangle)) {
+                    bonus2SpeedEffect.Add(item);
+                }
+            }
+
+            //Slow Bonus
+
+            foreach (var item in bonusSlow) {
+                if (player1.Intersect(item.Rectangle)) {
+                    bonusSlowEffect.Add(item);
+                }
+
+                if (player2.Intersect(item.Rectangle)) {
+                    bonusSlowEffect.Add(item);
+                }
+            }
+
+            //Effect of Speed Bonus for Player1
+
+            foreach (var item in bonus1SpeedEffect) {
+                if (item is Bonus) {
+                    TimerBonusLength.Enabled = true;
+                    if (player1.Speed == 3) {
+                        player1.Speed += 2;
+                    }
+                    bonusSpeed.Remove(item);
+                }
+            }
+
+            //Effect of Speed Bonus for Player2
+
+            foreach (var item in bonus2SpeedEffect) {
+                if (item is Bonus) {
+                    TimerBonusLength.Enabled = true;
+                    if (player2.Speed == 3) {
+                        player2.Speed += 2;
+                    }
+                    bonusSpeed.Remove(item);
+                }
+            }
+
+            //Effect of Slow Bonus
+
+            foreach (var item in bonusSlowEffect) {
+                if (item is Bonus) {
+                    TimerSlowBonusLength.Enabled = true;
+                    if (player1.Speed >= 3 && player2.Speed >= 3) {
+                        player1.Speed = 1;
+                        player2.Speed = 1;
+                    }
+                    bonusSlow.Remove(item);
+                }
+            }
+
+            //Player1 Died
+
             foreach (var item in players1Delete) {
                 if (item is Player) {
                     players1.Clear();
@@ -347,6 +509,8 @@ namespace Tron {
                     Score2();
                 }
             }
+
+            //Player2 Died
 
             foreach (var item in players2Delete) {
                 if (item is Player) {
@@ -361,13 +525,17 @@ namespace Tron {
             }
         }
 
+        //Score Labels
+
         private void Form1_Load(object sender, EventArgs e) {
             label1.Location = new Point(pbCanvas.Width - 190, 10);
             label1.BackColor = Color.Black;
+            label1.ForeColor = Color.FromArgb(255, 0, 0);
             label1.Font = new Font("Arial", 20);
 
             label2.Location = new Point(10, 10);
             label2.BackColor = Color.Black;
+            label2.ForeColor = Color.FromArgb(0, 0, 255);
             label2.Font = new Font("Arial", 20);
         }
     }

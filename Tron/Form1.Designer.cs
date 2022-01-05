@@ -31,6 +31,9 @@ namespace Tron {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.TimerBonus = new System.Windows.Forms.Timer(this.components);
+            this.TimerSlowBonus = new System.Windows.Forms.Timer(this.components);
+            this.TimerSlowBonusLength = new System.Windows.Forms.Timer(this.components);
+            this.TimerBonusLength = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,13 +49,13 @@ namespace Tron {
             // Timer
             // 
             this.Timer.Enabled = true;
-            this.Timer.Interval = 1;
+            this.Timer.Interval = 10;
             this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
             // 
             // Timer1
             // 
             this.Timer1.Enabled = true;
-            this.Timer1.Interval = 1;
+            this.Timer1.Interval = 10;
             this.Timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // label1
@@ -81,6 +84,23 @@ namespace Tron {
             // 
             this.TimerBonus.Enabled = true;
             this.TimerBonus.Interval = 10000;
+            this.TimerBonus.Tick += new System.EventHandler(this.TimerBonus_Tick);
+            // 
+            // TimerSlowBonus
+            // 
+            this.TimerSlowBonus.Enabled = true;
+            this.TimerSlowBonus.Interval = 12000;
+            this.TimerSlowBonus.Tick += new System.EventHandler(this.TimerSlowBonus_Tick);
+            // 
+            // TimerSlowBonusLength
+            // 
+            this.TimerSlowBonusLength.Interval = 5000;
+            this.TimerSlowBonusLength.Tick += new System.EventHandler(this.TimerSlowBonusLength_Tick);
+            // 
+            // TimerBonusLength
+            // 
+            this.TimerBonusLength.Interval = 5000;
+            this.TimerBonusLength.Tick += new System.EventHandler(this.TimerBonusLength_Tick);
             // 
             // Form1
             // 
@@ -113,6 +133,9 @@ namespace Tron {
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Timer TimerBonus;
+        private System.Windows.Forms.Timer TimerSlowBonus;
+        private System.Windows.Forms.Timer TimerSlowBonusLength;
+        private System.Windows.Forms.Timer TimerBonusLength;
     }
 }
 
