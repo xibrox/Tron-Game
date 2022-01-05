@@ -58,15 +58,13 @@ namespace Tron {
             this.pbCanvas.Size = this.Size;
         }
 
-        //Some of deez are not in use
-        //But if I will use them in future
-        //I will use them :)
+        //Spawn Players, Players Tails and Bonuses
 
         public void SetBonusSpeed() {
             var size = new Size(16, 16);
             var location = new Point(rnd.Next(0, pbCanvas.Width), rnd.Next(label1.Size.Height + 18, pbCanvas.Height - 18));
 
-            bonusSpeed.Add(new Bonus(Brushes.Violet, size, location));
+            bonusSpeed.Add(new Bonus(Brushes.Green, size, location));
         }
 
         public void SetBonusSlow() {
@@ -86,20 +84,6 @@ namespace Tron {
         public void SetPlayer2() {
             var size = new Size(13, 13);
             var location = new Point(pbCanvas.Width / 3, pbCanvas.Size.Height / 2);
-
-            player2 = new Player(Brushes.Blue, size, location, 3);
-        }
-
-        public void SetPlayer1Death() {
-            var size = new Size(13, 13);
-            var location = new Point(rnd.Next(0, pbCanvas.Width), rnd.Next(label1.Size.Height + 15, pbCanvas.Size.Height - 15));
-
-            player1 = new Player(Brushes.Red, size, location, 3);
-        }
-
-        public void SetPlayer2Death() {
-            var size = new Size(13, 13);
-            var location = new Point(rnd.Next(0, pbCanvas.Width), rnd.Next(label1.Size.Height + 15, pbCanvas.Size.Height - 15));
 
             player2 = new Player(Brushes.Blue, size, location, 3);
         }
@@ -267,19 +251,19 @@ namespace Tron {
 
             if (position == Position.Up) {
                 direction.Y--;
-                SetPlayer1TailUp();
+                SetPlayer1Tail();
             }
             if (position == Position.Down) {
                 direction.Y++;
-                SetPlayer1TailDown();
+                SetPlayer1Tail();
             }
             if (position == Position.Left) {
                 direction.X--;
-                SetPlayer1TailLeft();
+                SetPlayer1Tail();
             }
             if (position == Position.Right) {
                 direction.X++;
-                SetPlayer1TailRight();
+                SetPlayer1Tail();
             }
 
             player1.Move(direction);
@@ -298,19 +282,19 @@ namespace Tron {
 
             if (position1 == Position1.W) {
                 direction.Y--;
-                SetPlayer2TailUp();
+                SetPlayer2Tail();
             }
             if (position1 == Position1.S) {
                 direction.Y++;
-                SetPlayer2TailDown();
+                SetPlayer2Tail();
             }
             if (position1 == Position1.A) {
                 direction.X--;
-                SetPlayer2TailLeft();
+                SetPlayer2Tail();
             }
             if (position1 == Position1.D) {
                 direction.X++;
-                SetPlayer2TailRight();
+                SetPlayer2Tail();
             }
 
             player2.Move(direction);
@@ -347,13 +331,19 @@ namespace Tron {
                 player1.Speed = 3;
                 TimerBonusLength.Enabled = false;
             }
+            
+            if (player2.Speed > 3) {
+                player2.Speed = 3;
+                TimerBonusLength.Enabled = false;
+            }
         }
 
         //1 tick = 5 000 ms (5 seconds)
 
         private void TimerSlowBonusLength_Tick(object sender, EventArgs e) {
-            if (player1.Speed > 3) {
+            if (player1.Speed == 1 && player2.Speed == 1) {
                 player1.Speed = 3;
+                player2.Speed = 3;
                 TimerSlowBonusLength.Enabled = false;
             }
         }
@@ -391,10 +381,6 @@ namespace Tron {
                     players2Delete.Add(item);
                 }
 
-                if (player1.Intersect(item.Rectangle)) {
-                    players1Delete.Add(item);
-                }
-
                 if (player1.Location.Y < boundary.Up) {
                     players1Delete.Add(item);
                 }
@@ -417,9 +403,6 @@ namespace Tron {
             foreach (var item in players2) {
                 if (player1.Intersect(item.Rectangle)) {
                     players1Delete.Add(item);
-                }
-                if (player2.Intersect(item.Rectangle)) {
-                    players2Delete.Add(item);
                 }
                 if (player2.Location.Y < boundary.Up) {
                     players2Delete.Add(item);
@@ -489,8 +472,8 @@ namespace Tron {
                 if (item is Bonus) {
                     TimerSlowBonusLength.Enabled = true;
                     if (player1.Speed >= 3 && player2.Speed >= 3) {
-                        player1.Speed = 1;
-                        player2.Speed = 1;
+                        player1.Speed -= 2;
+                        player2.Speed -= 2;
                     }
                     bonusSlow.Remove(item);
                 }
