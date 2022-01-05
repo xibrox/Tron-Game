@@ -329,13 +329,15 @@ namespace Tron {
         private void TimerBonusLength_Tick(object sender, EventArgs e) {
             if (player1.Speed > 3) {
                 player1.Speed = 3;
-                TimerBonusLength.Enabled = false;
             }
             
             if (player2.Speed > 3) {
                 player2.Speed = 3;
-                TimerBonusLength.Enabled = false;
             }
+
+            TimerBonusLength.Enabled = false;
+
+            this.pbCanvas.Refresh();
         }
 
         //1 tick = 5 000 ms (5 seconds)
@@ -344,8 +346,11 @@ namespace Tron {
             if (player1.Speed == 1 && player2.Speed == 1) {
                 player1.Speed = 3;
                 player2.Speed = 3;
-                TimerSlowBonusLength.Enabled = false;
             }
+
+            TimerSlowBonusLength.Enabled = false;
+
+            this.pbCanvas.Refresh();
         }
 
         //not working score IDK why
