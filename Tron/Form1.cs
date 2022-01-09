@@ -54,6 +54,7 @@ namespace Tron {
             this.Bounds = Screen.PrimaryScreen.Bounds;
             this.WindowState = FormWindowState.Maximized;
 
+            this.pbCanvas.Location = new Point(0, 0);
             this.pbCanvas.BackColor = Color.FromArgb(0, 0, 0);
             this.pbCanvas.Size = this.Size;
         }
@@ -62,14 +63,14 @@ namespace Tron {
 
         public void SetBonusSpeed() {
             var size = new Size(16, 16);
-            var location = new Point(rnd.Next(0, pbCanvas.Width), rnd.Next(label1.Size.Height + 18, pbCanvas.Height - 18));
+            var location = new Point(rnd.Next(0, pbCanvas.Width), rnd.Next(label1.Size.Height + 22, pbCanvas.Height - 22));
 
             bonusSpeed.Add(new Bonus(Brushes.Green, size, location));
         }
 
         public void SetBonusSlow() {
             var size = new Size(16, 16);
-            var location = new Point(rnd.Next(0, pbCanvas.Width), rnd.Next(label1.Size.Height + 18, pbCanvas.Height - 18));
+            var location = new Point(rnd.Next(0, pbCanvas.Width), rnd.Next(label1.Size.Height + 22, pbCanvas.Height - 22));
 
             bonusSlow.Add(new Bonus(Brushes.Gray, size, location));
         }
@@ -94,66 +95,9 @@ namespace Tron {
 
             players1.Add(new Player(Brushes.Red, size, location, 3));
         }
-
-        public void SetPlayer1TailUp() {
-            var size = new Size(player1.Size.Width, player1.Size.Height);
-            var location = new Point(player1.Location.X, player1.Location.Y + 10);
-
-            players1.Add(new Player(Brushes.Red, size, location, 3));
-        }
-
-        public void SetPlayer1TailDown() {
-            var size = new Size(player1.Size.Width, player1.Size.Height);
-            var location = new Point(player1.Location.X, player1.Location.Y - 10);
-
-            players1.Add(new Player(Brushes.Red, size, location, 3));
-        }
-
-        public void SetPlayer1TailLeft() {
-            var size = new Size(player1.Size.Width, player1.Size.Height);
-            var location = new Point(player1.Location.X + 10, player1.Location.Y);
-
-            players1.Add(new Player(Brushes.Red, size, location, 3));
-        }
-
-        public void SetPlayer1TailRight() {
-            var size = new Size(player1.Size.Width, player1.Size.Height);
-            var location = new Point(player1.Location.X - 10, player1.Location.Y);
-
-            players1.Add(new Player(Brushes.Red, size, location, 3));
-        }
-
         public void SetPlayer2Tail() {
             var size = new Size(player2.Size.Width, player2.Size.Height);
             var location = new Point(player2.Location.X, player2.Location.Y);
-
-            players2.Add(new Player(Brushes.Blue, size, location, 3));
-        }
-
-        public void SetPlayer2TailUp() {
-            var size = new Size(player2.Size.Width, player2.Size.Height);
-            var location = new Point(player2.Location.X, player2.Location.Y + 10);
-
-            players2.Add(new Player(Brushes.Blue, size, location, 3));
-        }
-
-        public void SetPlayer2TailDown() {
-            var size = new Size(player2.Size.Width, player2.Size.Height);
-            var location = new Point(player2.Location.X, player2.Location.Y - 10);
-
-            players2.Add(new Player(Brushes.Blue, size, location, 3));
-        }
-
-        public void SetPlayer2TailLeft() {
-            var size = new Size(player2.Size.Width, player2.Size.Height);
-            var location = new Point(player2.Location.X + 10, player2.Location.Y);
-
-            players2.Add(new Player(Brushes.Blue, size, location, 3));
-        }
-
-        public void SetPlayer2TailRight() {
-            var size = new Size(player2.Size.Width, player2.Size.Height);
-            var location = new Point(player2.Location.X - 10, player2.Location.Y);
 
             players2.Add(new Player(Brushes.Blue, size, location, 3));
         }
@@ -238,10 +182,6 @@ namespace Tron {
             }
         }
 
-        private void Form1_KeyUp(object sender, KeyEventArgs e) {
-            //I am Lazy to Delete this   
-        }
-
         //1 tick = 10 ms
 
         private void Timer_Tick(object sender, EventArgs e) {
@@ -299,15 +239,36 @@ namespace Tron {
 
             player2.Move(direction);
 
+           
+
             HandleCollision();
 
             this.pbCanvas.Refresh();
         }
 
+        //1 tick = 1 ms
+
+        private void Timer2_Tick(object sender, EventArgs e) {
+            if (players2.Count >= 0) {
+                SetPlayer2Tail();
+                players2.RemoveRange(0, 1);
+            }
+
+            if (players1.Count >= 0) {
+                SetPlayer1Tail();
+                players1.RemoveRange(0, 1);
+            }
+        }
+
         //1 tick = 10 000 ms (10 seconds)
 
         private void TimerBonus_Tick(object sender, EventArgs e) {
-            SetBonusSpeed();
+            if (bonusSpeed.Count == 2) {
+                return;
+            }
+            else {
+                SetBonusSpeed();
+            }
 
             HandleCollision();
 
@@ -317,7 +278,12 @@ namespace Tron {
         //1 tick = 12 000 ms (12 seconds)
 
         private void TimerSlowBonus_Tick(object sender, EventArgs e) {
-            SetBonusSlow();
+            if (bonusSlow.Count == 2) {
+                return;
+            }
+            else {
+                SetBonusSlow();
+            }
 
             HandleCollision();
 
@@ -376,14 +342,17 @@ namespace Tron {
 
             Boundary boundary = new Boundary(0, pbCanvas.Size.Width, 0, pbCanvas.Size.Height);
 
-            List<int> ones = Enumerable.Repeat(1, players1.Count).ToList();
-            List<int> ones1 = Enumerable.Repeat(1, players2.Count).ToList();
-
             //Collision for Player1
 
             foreach (var item in players1) {
                 if (player2.Intersect(item.Rectangle)) {
                     players2Delete.Add(item);
+                }
+
+                for (var i = players1.Count - 20; i >= 0; i--) {
+                    if (player1.Intersect(players1[i].Rectangle)) {
+                        players1Delete.Add(item);
+                    }
                 }
 
                 if (player1.Location.Y < boundary.Up) {
@@ -409,15 +378,25 @@ namespace Tron {
                 if (player1.Intersect(item.Rectangle)) {
                     players1Delete.Add(item);
                 }
+                
+                for (var i = players2.Count - 20; i >= 0; i--) {
+                    if (player2.Intersect(players2[i].Rectangle)) {
+                        players2Delete.Add(item);
+                    }
+                }
+
                 if (player2.Location.Y < boundary.Up) {
                     players2Delete.Add(item);
                 }
+
                 if (player2.Location.Y > (boundary.Down - player2.Size.Height)) {
                     players2Delete.Add(item);
                 }
+
                 if (player2.Location.X < boundary.Left) {
                     players2Delete.Add(item);
                 }
+
                 if (player2.Location.X > (boundary.Right - player2.Size.Width)) {
                     players2Delete.Add(item);
                 }
@@ -435,7 +414,7 @@ namespace Tron {
                 }
             }
 
-            //Slow Bonus
+            //Slow Motion Bonus
 
             foreach (var item in bonusSlow) {
                 if (player1.Intersect(item.Rectangle)) {
@@ -495,6 +474,8 @@ namespace Tron {
                     position = Position.Null;
                     position1 = Position1.Null;
                     Score2();
+                    bonusSlow.Clear();
+                    bonusSpeed.Clear();
                 }
             }
 
@@ -509,6 +490,8 @@ namespace Tron {
                     position1 = Position1.Null;
                     position = Position.Null;
                     Score1();
+                    bonusSlow.Clear();
+                    bonusSpeed.Clear();
                 }
             }
         }

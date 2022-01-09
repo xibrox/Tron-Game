@@ -14,7 +14,6 @@ namespace Tron {
             Right = right;
             Up = up;
             Down = down;
-
         }
     }
 }

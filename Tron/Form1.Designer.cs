@@ -34,12 +34,13 @@ namespace Tron {
             this.TimerSlowBonus = new System.Windows.Forms.Timer(this.components);
             this.TimerSlowBonusLength = new System.Windows.Forms.Timer(this.components);
             this.TimerBonusLength = new System.Windows.Forms.Timer(this.components);
+            this.Timer2 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).BeginInit();
             this.SuspendLayout();
             // 
             // pbCanvas
             // 
-            this.pbCanvas.Location = new System.Drawing.Point(0, 0);
+            this.pbCanvas.Location = new System.Drawing.Point(12, 12);
             this.pbCanvas.Name = "pbCanvas";
             this.pbCanvas.Size = new System.Drawing.Size(100, 50);
             this.pbCanvas.TabIndex = 0;
@@ -63,7 +64,7 @@ namespace Tron {
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.SystemColors.ControlText;
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(12, 53);
+            this.label1.Location = new System.Drawing.Point(12, 76);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 15);
             this.label1.TabIndex = 1;
@@ -74,7 +75,7 @@ namespace Tron {
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.SystemColors.ControlText;
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(12, 77);
+            this.label2.Location = new System.Drawing.Point(12, 100);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(74, 15);
             this.label2.TabIndex = 2;
@@ -102,6 +103,12 @@ namespace Tron {
             this.TimerBonusLength.Interval = 5000;
             this.TimerBonusLength.Tick += new System.EventHandler(this.TimerBonusLength_Tick);
             // 
+            // Timer2
+            // 
+            this.Timer2.Enabled = true;
+            this.Timer2.Interval = 1;
+            this.Timer2.Tick += new System.EventHandler(this.Timer2_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -111,14 +118,11 @@ namespace Tron {
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pbCanvas);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -136,6 +140,7 @@ namespace Tron {
         private System.Windows.Forms.Timer TimerSlowBonus;
         private System.Windows.Forms.Timer TimerSlowBonusLength;
         private System.Windows.Forms.Timer TimerBonusLength;
+        private System.Windows.Forms.Timer Timer2;
     }
 }
 
