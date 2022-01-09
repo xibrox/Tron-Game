@@ -62,28 +62,28 @@ namespace Tron {
         //Spawn Players, Players Tails and Bonuses
 
         public void SetBonusSpeed() {
-            var size = new Size(16, 16);
+            var size = new Size(18, 18);
             var location = new Point(rnd.Next(0, pbCanvas.Width), rnd.Next(label1.Size.Height + 22, pbCanvas.Height - 22));
 
             bonusSpeed.Add(new Bonus(Brushes.Green, size, location));
         }
 
         public void SetBonusSlow() {
-            var size = new Size(16, 16);
+            var size = new Size(18, 18);
             var location = new Point(rnd.Next(0, pbCanvas.Width), rnd.Next(label1.Size.Height + 22, pbCanvas.Height - 22));
 
             bonusSlow.Add(new Bonus(Brushes.Gray, size, location));
         }
 
         public void SetPlayer1() {
-            var size = new Size(13, 13);
+            var size = new Size(15, 15);
             var location = new Point(pbCanvas.Width - pbCanvas.Width / 3, pbCanvas.Size.Height / 2);
 
             player1 = new Player(Brushes.Red, size, location, 3);
         }
         
         public void SetPlayer2() {
-            var size = new Size(13, 13);
+            var size = new Size(15, 15);
             var location = new Point(pbCanvas.Width / 3, pbCanvas.Size.Height / 2);
 
             player2 = new Player(Brushes.Blue, size, location, 3);
@@ -106,6 +106,8 @@ namespace Tron {
 
         private void pbCanvas_Paint(object sender, PaintEventArgs e) {
             var g = e.Graphics;
+
+            g.Clear(Color.Black);
 
             foreach (var item in players1) {
                 item.Draw(g);
@@ -239,8 +241,6 @@ namespace Tron {
 
             player2.Move(direction);
 
-           
-
             HandleCollision();
 
             this.pbCanvas.Refresh();
@@ -249,14 +249,14 @@ namespace Tron {
         //1 tick = 1 ms
 
         private void Timer2_Tick(object sender, EventArgs e) {
-            if (players2.Count >= 0) {
+            if (players2.Count > 200) {
                 SetPlayer2Tail();
-                players2.RemoveRange(0, 1);
+                players2.RemoveRange(0, 2);
             }
 
-            if (players1.Count >= 0) {
+            if (players1.Count > 200) {
                 SetPlayer1Tail();
-                players1.RemoveRange(0, 1);
+                players1.RemoveRange(0, 2);
             }
         }
 
@@ -456,8 +456,8 @@ namespace Tron {
                 if (item is Bonus) {
                     TimerSlowBonusLength.Enabled = true;
                     if (player1.Speed >= 3 && player2.Speed >= 3) {
-                        player1.Speed -= 2;
-                        player2.Speed -= 2;
+                        player1.Speed -= 1;
+                        player2.Speed -= 1;
                     }
                     bonusSlow.Remove(item);
                 }

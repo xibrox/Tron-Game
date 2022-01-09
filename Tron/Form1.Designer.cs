@@ -106,7 +106,7 @@ namespace Tron {
             // Timer2
             // 
             this.Timer2.Enabled = true;
-            this.Timer2.Interval = 1;
+            this.Timer2.Interval = 20;
             this.Timer2.Tick += new System.EventHandler(this.Timer2_Tick);
             // 
             // Form1
@@ -117,6 +117,7 @@ namespace Tron {
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pbCanvas);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
             this.Text = "Form1";
