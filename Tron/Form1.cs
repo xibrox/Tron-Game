@@ -346,17 +346,36 @@ namespace Tron {
         private void Score1() {
             redScore++;
             label1.Text = "Red Score: " + redScore;
+
+            players2.Clear();
+            players1.Clear();
+            SetPlayer2();
+            SetPlayer1();
+            position1 = Position1.Null;
+            position = Position.Null;
+            bonusSlow.Clear();
+            bonusSpeed.Clear();
+            Timer.Enabled = false;
+            Timer1.Enabled = false;
         }
 
         private void Score2() {
             blueScore++;
             label2.Text = "Blue Score: " + blueScore;
+
+            players1.Clear();
+            players2.Clear();
+            SetPlayer1();
+            SetPlayer2();
+            position = Position.Null;
+            position1 = Position1.Null;
+            bonusSlow.Clear();
+            bonusSpeed.Clear();
+            Timer.Enabled = false;
+            Timer1.Enabled = false;
         }
 
         private void HandleCollision() {
-            var players1Delete = new List<Player>();
-            var players2Delete = new List<Player>();
-
             var bonus1SpeedEffect = new List<Bonus>();
             var bonus2SpeedEffect = new List<Bonus>();
 
@@ -366,12 +385,6 @@ namespace Tron {
 
             //Collision for Player1
 
-            for (var i = 0; i < players2.Count - 30; i++) {
-                if (player1.Intersect(players2[i].Rectangle)) {
-                    Score2();
-                }
-            }
-
             for (var i = 0; i < players2.Count; i++) {
                 if (player1.Intersect(players2[i].Rectangle)) {
                     Score2();
@@ -379,10 +392,28 @@ namespace Tron {
             }
 
             for (var i = 0; i < players1.Count - 30; i++) {
-                if (player2.Intersect(players1[i].Rectangle)) {
-                    Score1();
+                if (player1.Intersect(players1[i].Rectangle)) {
+                    Score2();
                 }
             }
+
+            if (player1.Location.Y < boundary.Up) {
+                Score2();
+            }
+
+            if (player1.Location.Y > (boundary.Down - player2.Size.Height)) {
+                Score2();
+            }
+
+            if (player1.Location.X < boundary.Left) {
+                Score2();
+            }
+
+            if (player1.Location.X > (boundary.Right - player1.Size.Width)) {
+                Score2();
+            }
+
+            //Collision for Player2
 
             for (var i = 0; i < players1.Count; i++) {
                 if (player2.Intersect(players1[i].Rectangle)) {
@@ -390,62 +421,26 @@ namespace Tron {
                 }
             }
 
-                foreach (var item in players1) {
-                if (player2.Intersect(item.Rectangle)) {
-                    players2Delete.Add(item);
-                }
-
-                for (var i = players1.Count - 30; i >= 0; i--) {
-                    if (player1.Intersect(players1[i].Rectangle)) {
-                        players1Delete.Add(item);
-                    }
-                }
-
-                if (player1.Location.Y < boundary.Up) {
-                    players1Delete.Add(item);
-                }
-
-                if (player1.Location.Y > (boundary.Down - player2.Size.Height)) {
-                    players1Delete.Add(item);
-                }
-
-                if (player1.Location.X < boundary.Left) {
-                    players1Delete.Add(item);
-                }
-
-                if (player1.Location.X > (boundary.Right - player1.Size.Width)) {
-                    players1Delete.Add(item);
+            for (var i = 0; i < players2.Count - 30; i++) {
+                if (player2.Intersect(players2[i].Rectangle)) {
+                    Score1();
                 }
             }
 
-            //Collision for Player2
+            if (player2.Location.Y < boundary.Up) {
+                Score1();
+            }
 
-            foreach (var item in players2) {
-                if (player1.Intersect(item.Rectangle)) {
-                    players1Delete.Add(item);
-                }
-                
-                for (var i = players2.Count - 30; i >= 0; i--) {
-                    if (player2.Intersect(players2[i].Rectangle)) {
-                        players2Delete.Add(item);
-                    }
-                }
+            if (player2.Location.Y > (boundary.Down - player2.Size.Height)) {
+                Score1();
+            }
 
-                if (player2.Location.Y < boundary.Up) {
-                    players2Delete.Add(item);
-                }
+            if (player2.Location.X < boundary.Left) {
+                Score1();
+            }
 
-                if (player2.Location.Y > (boundary.Down - player2.Size.Height)) {
-                    players2Delete.Add(item);
-                }
-
-                if (player2.Location.X < boundary.Left) {
-                    players2Delete.Add(item);
-                }
-
-                if (player2.Location.X > (boundary.Right - player2.Size.Width)) {
-                    players2Delete.Add(item);
-                }
+            if (player2.Location.X > (boundary.Right - player2.Size.Width)) {
+                Score1();
             }
 
             //Speed Bonus
@@ -506,40 +501,6 @@ namespace Tron {
                         player2.Speed -= 1;
                     }
                     bonusSlow.Remove(item);
-                }
-            }
-
-            //Player1 Died
-
-            foreach (var item in players1Delete) {
-                if (item is Player) {
-                    players1.Clear();
-                    players2.Clear();
-                    SetPlayer1();
-                    SetPlayer2();
-                    position = Position.Null;
-                    position1 = Position1.Null;
-                    bonusSlow.Clear();
-                    bonusSpeed.Clear();
-                    Timer.Enabled = false;
-                    Timer1.Enabled = false;
-                }
-            }
-
-            //Player2 Died
-
-            foreach (var item in players2Delete) {
-                if (item is Player) {
-                    players2.Clear();
-                    players1.Clear();
-                    SetPlayer2();
-                    SetPlayer1();
-                    position1 = Position1.Null;
-                    position = Position.Null;
-                    bonusSlow.Clear();
-                    bonusSpeed.Clear();
-                    Timer.Enabled = false;
-                    Timer1.Enabled = false;
                 }
             }
         }

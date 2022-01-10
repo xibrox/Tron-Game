@@ -101,7 +101,7 @@ namespace Tron {
             // 
             // Timer2
             // 
-            this.Timer2.Interval = 20;
+            this.Timer2.Interval = 30;
             this.Timer2.Tick += new System.EventHandler(this.Timer2_Tick);
             // 
             // Tron
