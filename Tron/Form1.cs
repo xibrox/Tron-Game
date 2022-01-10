@@ -76,14 +76,14 @@ namespace Tron {
         }
 
         public void SetPlayer1() {
-            var size = new Size(15, 15);
+            var size = new Size(13, 13);
             var location = new Point(pbCanvas.Width - pbCanvas.Width / 3, pbCanvas.Size.Height / 2);
 
             player1 = new Player(Brushes.Red, size, location, 3);
         }
         
         public void SetPlayer2() {
-            var size = new Size(15, 15);
+            var size = new Size(13, 13);
             var location = new Point(pbCanvas.Width / 3, pbCanvas.Size.Height / 2);
 
             player2 = new Player(Brushes.Blue, size, location, 3);
@@ -100,6 +100,13 @@ namespace Tron {
             var location = new Point(player2.Location.X, player2.Location.Y);
 
             players2.Add(new Player(Brushes.Blue, size, location, 3));
+        }
+
+        private void StartGame() {
+            if (Timer.Enabled == false && Timer1.Enabled == false) {
+                Timer.Enabled = true;
+                Timer1.Enabled = true;
+            }
         }
 
         //Drawing on Canvas
@@ -137,10 +144,16 @@ namespace Tron {
                 this.Close();
             }
 
+            if (Keys.Space == e.KeyCode) {
+                position = Position.Left;
+                position1 = Position1.D;
+                StartGame();
+            }
+
             //Movement for Player2
 
             if (Keys.Up == e.KeyCode) {
-                if(position != Position.Down) {
+                if (position != Position.Down) {
                     position = Position.Up;
                 }
             }
@@ -155,7 +168,7 @@ namespace Tron {
                 }
             }
             if (Keys.Right == e.KeyCode) {
-                if(position != Position.Left) {
+                if (position != Position.Left) {
                     position = Position.Right;
                 }
             }
@@ -249,14 +262,14 @@ namespace Tron {
         //1 tick = 1 ms
 
         private void Timer2_Tick(object sender, EventArgs e) {
-            if (players2.Count > 200) {
-                SetPlayer2Tail();
-                players2.RemoveRange(0, 2);
-            }
-
-            if (players1.Count > 200) {
+            if (players1.Count > 100) {
                 SetPlayer1Tail();
                 players1.RemoveRange(0, 2);
+            }
+
+            if (players2.Count > 100) {
+                SetPlayer2Tail();
+                players2.RemoveRange(0, 2);
             }
         }
 
@@ -309,7 +322,7 @@ namespace Tron {
         //1 tick = 5 000 ms (5 seconds)
 
         private void TimerSlowBonusLength_Tick(object sender, EventArgs e) {
-            if (player1.Speed == 1 && player2.Speed == 1) {
+            if (player1.Speed < 3 && player2.Speed < 3) {
                 player1.Speed = 3;
                 player2.Speed = 3;
             }
@@ -319,7 +332,7 @@ namespace Tron {
             this.pbCanvas.Refresh();
         }
 
-        //not working score IDK why
+        //Score
 
         private void Score1() {
             redScore++;
@@ -349,7 +362,7 @@ namespace Tron {
                     players2Delete.Add(item);
                 }
 
-                for (var i = players1.Count - 20; i >= 0; i--) {
+                for (var i = players1.Count - 30; i >= 0; i--) {
                     if (player1.Intersect(players1[i].Rectangle)) {
                         players1Delete.Add(item);
                     }
@@ -379,7 +392,7 @@ namespace Tron {
                     players1Delete.Add(item);
                 }
                 
-                for (var i = players2.Count - 20; i >= 0; i--) {
+                for (var i = players2.Count - 30; i >= 0; i--) {
                     if (player2.Intersect(players2[i].Rectangle)) {
                         players2Delete.Add(item);
                     }
@@ -476,6 +489,8 @@ namespace Tron {
                     Score2();
                     bonusSlow.Clear();
                     bonusSpeed.Clear();
+                    Timer.Enabled = false;
+                    Timer1.Enabled = false;
                 }
             }
 
@@ -492,6 +507,8 @@ namespace Tron {
                     Score1();
                     bonusSlow.Clear();
                     bonusSpeed.Clear();
+                    Timer.Enabled = false;
+                    Timer1.Enabled = false;
                 }
             }
         }
