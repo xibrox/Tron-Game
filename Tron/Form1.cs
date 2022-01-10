@@ -57,6 +57,8 @@ namespace Tron {
             this.pbCanvas.Location = new Point(0, 0);
             this.pbCanvas.BackColor = Color.FromArgb(0, 0, 0);
             this.pbCanvas.Size = this.Size;
+
+            Cursor.Hide();
         }
 
         //Spawn Players, Players Tails and Bonuses
