@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using System.Media;
 
 namespace Tron {
-    public partial class Form1 : Form {
+    public partial class Tron : Form {
         Player player1;
         Player player2;
         List<Player> players1 = new List<Player>();
@@ -19,8 +19,8 @@ namespace Tron {
         List<Bonus> bonusSpeed = new List<Bonus>();
         List<Bonus> bonusSlow = new List<Bonus>();
         Random rnd = new Random();
-        private int redScore = 0;
-        private int blueScore = 0;
+        int redScore = 0;
+        int blueScore = 0;
 
         //Epic Enums
 
@@ -37,7 +37,7 @@ namespace Tron {
 
         //Some usefull staff 
 
-        public Form1() {
+        public Tron() {
             InitializeComponent();
             Init();
 
@@ -106,6 +106,9 @@ namespace Tron {
             if (Timer.Enabled == false && Timer1.Enabled == false) {
                 Timer.Enabled = true;
                 Timer1.Enabled = true;
+                TimerBonus.Enabled = true;
+                TimerSlowBonus.Enabled = true;
+                Timer2.Enabled = true;
             }
         }
 
@@ -157,16 +160,19 @@ namespace Tron {
                     position = Position.Up;
                 }
             }
+
             if (Keys.Left == e.KeyCode) {
                 if (position != Position.Right) {
                     position = Position.Left;
                 }
             }
+
             if (Keys.Down == e.KeyCode) {
                 if (position != Position.Up) {
                     position = Position.Down;
                 }
             }
+
             if (Keys.Right == e.KeyCode) {
                 if (position != Position.Left) {
                     position = Position.Right;
@@ -180,16 +186,19 @@ namespace Tron {
                     position1 = Position1.W;
                 }
             }
+
             if (Keys.A == e.KeyCode) {
                 if (position1 != Position1.D) {
                     position1 = Position1.A;
                 }
             }
+
             if (Keys.S == e.KeyCode) {
                 if(position1 != Position1.W) {
                     position1 = Position1.S;
                 }
             }
+
             if (Keys.D == e.KeyCode) {
                 if (position1 != Position1.A) {
                     position1 = Position1.D;
@@ -357,7 +366,31 @@ namespace Tron {
 
             //Collision for Player1
 
-            foreach (var item in players1) {
+            for (var i = 0; i < players2.Count - 30; i++) {
+                if (player1.Intersect(players2[i].Rectangle)) {
+                    Score2();
+                }
+            }
+
+            for (var i = 0; i < players2.Count; i++) {
+                if (player1.Intersect(players2[i].Rectangle)) {
+                    Score2();
+                }
+            }
+
+            for (var i = 0; i < players1.Count - 30; i++) {
+                if (player2.Intersect(players1[i].Rectangle)) {
+                    Score1();
+                }
+            }
+
+            for (var i = 0; i < players1.Count; i++) {
+                if (player2.Intersect(players1[i].Rectangle)) {
+                    Score1();
+                }
+            }
+
+                foreach (var item in players1) {
                 if (player2.Intersect(item.Rectangle)) {
                     players2Delete.Add(item);
                 }
@@ -486,7 +519,6 @@ namespace Tron {
                     SetPlayer2();
                     position = Position.Null;
                     position1 = Position1.Null;
-                    Score2();
                     bonusSlow.Clear();
                     bonusSpeed.Clear();
                     Timer.Enabled = false;
@@ -504,7 +536,6 @@ namespace Tron {
                     SetPlayer1();
                     position1 = Position1.Null;
                     position = Position.Null;
-                    Score1();
                     bonusSlow.Clear();
                     bonusSpeed.Clear();
                     Timer.Enabled = false;

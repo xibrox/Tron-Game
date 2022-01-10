@@ -1,6 +1,6 @@
 ﻿
 namespace Tron {
-    partial class Form1 {
+    partial class Tron {
         /// <summary>
         ///  Required designer variable.
         /// </summary>
@@ -81,13 +81,11 @@ namespace Tron {
             // 
             // TimerBonus
             // 
-            this.TimerBonus.Enabled = true;
             this.TimerBonus.Interval = 10000;
             this.TimerBonus.Tick += new System.EventHandler(this.TimerBonus_Tick);
             // 
             // TimerSlowBonus
             // 
-            this.TimerSlowBonus.Enabled = true;
             this.TimerSlowBonus.Interval = 12000;
             this.TimerSlowBonus.Tick += new System.EventHandler(this.TimerSlowBonus_Tick);
             // 
@@ -103,11 +101,10 @@ namespace Tron {
             // 
             // Timer2
             // 
-            this.Timer2.Enabled = true;
             this.Timer2.Interval = 20;
             this.Timer2.Tick += new System.EventHandler(this.Timer2_Tick);
             // 
-            // Form1
+            // Tron
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -117,8 +114,8 @@ namespace Tron {
             this.Controls.Add(this.pbCanvas);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Tron";
+            this.Text = "Tron";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
