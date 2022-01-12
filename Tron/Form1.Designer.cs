@@ -35,6 +35,10 @@ namespace Tron {
             this.TimerSlowBonusLength = new System.Windows.Forms.Timer(this.components);
             this.TimerBonusLength = new System.Windows.Forms.Timer(this.components);
             this.Timer2 = new System.Windows.Forms.Timer(this.components);
+            this.TimerInvertBonus = new System.Windows.Forms.Timer(this.components);
+            this.TimerInvertBonusLength = new System.Windows.Forms.Timer(this.components);
+            this.TimerInverted = new System.Windows.Forms.Timer(this.components);
+            this.Timer1Inverted = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -104,6 +108,26 @@ namespace Tron {
             this.Timer2.Interval = 10;
             this.Timer2.Tick += new System.EventHandler(this.Timer2_Tick);
             // 
+            // TimerInvertBonus
+            // 
+            this.TimerInvertBonus.Interval = 15000;
+            this.TimerInvertBonus.Tick += new System.EventHandler(this.TimerInvertBonus_Tick);
+            // 
+            // TimerInvertBonusLength
+            // 
+            this.TimerInvertBonusLength.Interval = 5000;
+            this.TimerInvertBonusLength.Tick += new System.EventHandler(this.TimerInvertBonusLength_Tick);
+            // 
+            // TimerInverted
+            // 
+            this.TimerInverted.Interval = 10;
+            this.TimerInverted.Tick += new System.EventHandler(this.TimerInverted_Tick);
+            // 
+            // Timer1Inverted
+            // 
+            this.Timer1Inverted.Interval = 10;
+            this.Timer1Inverted.Tick += new System.EventHandler(this.Timer1Inverted_Tick);
+            // 
             // Tron
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -137,6 +161,10 @@ namespace Tron {
         private System.Windows.Forms.Timer TimerSlowBonusLength;
         private System.Windows.Forms.Timer TimerBonusLength;
         private System.Windows.Forms.Timer Timer2;
+        private System.Windows.Forms.Timer TimerInvertBonus;
+        private System.Windows.Forms.Timer TimerInvertBonusLength;
+        private System.Windows.Forms.Timer TimerInverted;
+        private System.Windows.Forms.Timer Timer1Inverted;
     }
 }
 
