@@ -6,5 +6,5 @@ Tron Hra
 1.4.1 ... Hidden Cursor
 1.5.1 ... Inverted Controls + Fixes
 1.6.1 ... Fixes
-1.5.1 ... Fix
 1.7.1 ... Fix
+1.8.1 ... Fix
