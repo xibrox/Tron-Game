@@ -360,12 +360,12 @@ namespace Tron {
         //1 tick = 10 ms
 
         private void Timer2_Tick(object sender, EventArgs e) {
-            if (players1.Count > 252) {
+            if (players1.Count > 302) {
                 SetPlayer1Tail();
                 players1.RemoveRange(0, 2);
             }
 
-            if (players2.Count > 252) {
+            if (players2.Count > 302) {
                 SetPlayer2Tail();
                 players2.RemoveRange(0, 2);
             }
@@ -387,6 +387,23 @@ namespace Tron {
             this.pbCanvas.Refresh();
         }
 
+        //Length of Speed Bonus
+        //1 tick = 5 000 ms (5 seconds)
+
+        private void TimerBonusLength_Tick(object sender, EventArgs e) {
+            if (player1.Speed > 0) {
+                player1.Speed = 3;
+            }
+
+            if (player2.Speed > 0) {
+                player2.Speed = 3;
+            }
+
+            TimerBonusLength.Enabled = false;
+
+            this.pbCanvas.Refresh();
+        }
+
         //Spawn of Slow Motion Bonus
         //1 tick = 12 000 ms (12 seconds)
 
@@ -399,23 +416,6 @@ namespace Tron {
             }
 
             HandleCollision();
-
-            this.pbCanvas.Refresh();
-        }
-
-        //Length of Speed Bonus
-        //1 tick = 5 000 ms (5 seconds)
-
-        private void TimerBonusLength_Tick(object sender, EventArgs e) {
-            if (player1.Speed > 0) {
-                player1.Speed = 3;
-            }
-            
-            if (player2.Speed > 0) {
-                player2.Speed = 3;
-            }
-
-            TimerBonusLength.Enabled = false;
 
             this.pbCanvas.Refresh();
         }
