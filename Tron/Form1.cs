@@ -457,52 +457,68 @@ namespace Tron {
             if (TimerInverted.Enabled == true) {
                 if (Position.Up == position) {
                     position = Position.Down;
-                    TimerInverted.Enabled = false;
-                    Timer.Enabled = true;
+                    if (position == Position.Down) {
+                        TimerInverted.Enabled = false;
+                        Timer.Enabled = true;
+                    }
                 }
 
-                if (Position.Down == position) {
+                else if (Position.Down == position) {
                     position = Position.Up;
-                    TimerInverted.Enabled = false;
-                    Timer.Enabled = true;
+                    if (position == Position.Up) {
+                        TimerInverted.Enabled = false;
+                        Timer.Enabled = true;
+                    }
                 }
 
-                if (Position.Left == position) {
+                else if (Position.Left == position) {
                     position = Position.Right;
-                    TimerInverted.Enabled = false;
-                    Timer.Enabled = true;
+                    if (position == Position.Right) {
+                        TimerInverted.Enabled = false;
+                        Timer.Enabled = true;
+                    }
                 }
 
-                if (Position.Right == position) {
+                else if (Position.Right == position) {
                     position = Position.Left;
-                    TimerInverted.Enabled = false;
-                    Timer.Enabled = true;
+                    if (position == Position.Left) {
+                        TimerInverted.Enabled = false;
+                        Timer.Enabled = true;
+                    }
                 }
             }
 
             if (Timer1Inverted.Enabled == true) {
                 if (Position1.W == position1) {
                     position1 = Position1.S;
-                    Timer1Inverted.Enabled = false;
-                    Timer1.Enabled = true;
+                    if (position1 == Position1.S) {
+                        Timer1Inverted.Enabled = false;
+                        Timer1.Enabled = true;
+                    }
                 }
 
-                if (Position1.S == position1) {
+                else if (Position1.S == position1) {
                     position1 = Position1.W;
-                    Timer1Inverted.Enabled = false;
-                    Timer1.Enabled = true;
+                    if (position1 == Position1.W) {
+                        Timer1Inverted.Enabled = false;
+                        Timer1.Enabled = true;
+                    }
                 }
 
-                if (Position1.A == position1) {
+                else if (Position1.A == position1) {
                     position1 = Position1.D;
-                    Timer1Inverted.Enabled = false;
-                    Timer1.Enabled = true;
+                    if (position1 == Position1.D) {
+                        Timer1Inverted.Enabled = false;
+                        Timer1.Enabled = true;
+                    }
                 }
 
-                if (Position1.D == position1) {
+                else if (Position1.D == position1) {
                     position1 = Position1.A;
-                    Timer1Inverted.Enabled = false;
-                    Timer1.Enabled = true;
+                    if (position1 == Position1.A) {
+                        Timer1Inverted.Enabled = false;
+                        Timer1.Enabled = true;
+                    }
                 }
             }
 
@@ -703,30 +719,38 @@ namespace Tron {
                 if (item is Bonus) {
                     if (Position1.W == position1) {
                         position1 = Position1.S;
-                        TimerInvertBonusLength.Enabled = true;
-                        Timer1Inverted.Enabled = true;
-                        Timer1.Enabled = false;
+                        if (position1 == Position1.S) {
+                            TimerInvertBonusLength.Enabled = true;
+                            Timer1Inverted.Enabled = true;
+                            Timer1.Enabled = false;
+                        }
                     }
 
-                    if (Position1.S == position1) {
+                    else if (Position1.S == position1) {
                         position1 = Position1.W;
-                        TimerInvertBonusLength.Enabled = true;
-                        Timer1Inverted.Enabled = true;
-                        Timer1.Enabled = false;
+                        if (position1 == Position1.W) {
+                            TimerInvertBonusLength.Enabled = true;
+                            Timer1Inverted.Enabled = true;
+                            Timer1.Enabled = false;
+                        }
                     }
 
-                    if (Position1.A == position1) {
+                    else if (Position1.A == position1) {
                         position1 = Position1.D;
-                        TimerInvertBonusLength.Enabled = true;
-                        Timer1Inverted.Enabled = true;
-                        Timer1.Enabled = false;
+                        if (position1 == Position1.D) {
+                            TimerInvertBonusLength.Enabled = true;
+                            Timer1Inverted.Enabled = true;
+                            Timer1.Enabled = false;
+                        }
                     }
 
-                    if (Position1.D == position1) {
+                    else if (Position1.D == position1) {
                         position1 = Position1.A;
-                        TimerInvertBonusLength.Enabled = true;
-                        Timer1Inverted.Enabled = true;
-                        Timer1.Enabled = false;
+                        if (position1 == Position1.A) {
+                            TimerInvertBonusLength.Enabled = true;
+                            Timer1Inverted.Enabled = true;
+                            Timer1.Enabled = false;
+                        }
                     }
 
                     bonusInvert.Remove(item);
@@ -737,30 +761,38 @@ namespace Tron {
                 if (item is Bonus) {
                     if (Position.Up == position) {
                         position = Position.Down;
-                        TimerInvertBonusLength.Enabled = true;
-                        TimerInverted.Enabled = true;
-                        Timer.Enabled = false;
+                        if (position == Position.Down) {
+                            TimerInvertBonusLength.Enabled = true;
+                            TimerInverted.Enabled = true;
+                            Timer.Enabled = false;
+                        }
                     }
 
-                    if (Position.Down == position) {
+                    else if (Position.Down == position) {
                         position = Position.Up;
-                        TimerInvertBonusLength.Enabled = true;
-                        TimerInverted.Enabled = true;
-                        Timer.Enabled = false;
+                        if (position == Position.Up) {
+                            TimerInvertBonusLength.Enabled = true;
+                            TimerInverted.Enabled = true;
+                            Timer.Enabled = false;
+                        }
                     }
 
-                    if (Position.Left == position) {
+                    else if (Position.Left == position) {
                         position = Position.Right;
-                        TimerInvertBonusLength.Enabled = true;
-                        TimerInverted.Enabled = true;
-                        Timer.Enabled = false;
+                        if (position == Position.Right) {
+                            TimerInvertBonusLength.Enabled = true;
+                            TimerInverted.Enabled = true;
+                            Timer.Enabled = false;
+                        }
                     }
 
-                    if (Position.Right == position) {
+                    else if (Position.Right == position) {
                         position = Position.Left;
-                        TimerInvertBonusLength.Enabled = true;
-                        TimerInverted.Enabled = true;
-                        Timer.Enabled = false;
+                        if (position == Position.Left) {
+                            TimerInvertBonusLength.Enabled = true;
+                            TimerInverted.Enabled = true;
+                            Timer.Enabled = false;
+                        }
                     }
 
                     bonusInvert.Remove(item);
