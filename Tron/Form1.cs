@@ -21,15 +21,21 @@ namespace Tron {
         Random rnd = new Random();
         int redScore = 0;
         int blueScore = 0;
+        int secSpeed1 = 5;
+        int secSpeed2 = 5;
+        int secSlow1 = 5;
+        int secSlow2 = 5;
+        int secInvert1 = 5;
+        int secInvert2 = 5;
 
         //Epic Enums
 
         enum Position {
-            Left, Right, Up, Down, Null
+            Left, Right, Up, Down, Null, UL, UR, DL, DR
         }
 
         enum Position1 {
-            W, A, S, D, Null
+            W, A, S, D, Null, WA, WD, SA, SD
         }
 
         private Position position;
@@ -60,33 +66,6 @@ namespace Tron {
         }
 
         //Spawn Players, Players Tails and Bonuses
-
-        //Spawn of Speed Bonus
-
-        public void SetBonusSpeed() {
-            var size = new Size(18, 18);
-            var location = new Point(rnd.Next(0, pbCanvas.Width), rnd.Next(label1.Size.Height + 22, pbCanvas.Height - 22));
-
-            bonusSpeed.Add(new Bonus(Brushes.Green, size, location));
-        }
-
-        //Spawn of Slow Motion Bonus
-
-        public void SetBonusSlow() {
-            var size = new Size(18, 18);
-            var location = new Point(rnd.Next(0, pbCanvas.Width), rnd.Next(label1.Size.Height + 22, pbCanvas.Height - 22));
-
-            bonusSlow.Add(new Bonus(Brushes.Gray, size, location));
-        }
-
-        //Spawn of Inverted Controls Bonus
-
-        public void SetBonusInvert() {
-            var size = new Size(18, 18);
-            var location = new Point(rnd.Next(0, pbCanvas.Width), rnd.Next(label1.Size.Height + 22, pbCanvas.Height - 22));
-
-            bonusInvert.Add(new Bonus(Brushes.Aqua, size, location));
-        }
 
         //Player1
 
@@ -122,6 +101,33 @@ namespace Tron {
             var location = new Point(player2.Location.X, player2.Location.Y);
 
             players2.Add(new Player(Brushes.Blue, size, location, 3));
+        }
+
+        //Spawn of Speed Bonus
+
+        public void SetBonusSpeed() {
+            var size = new Size(18, 18);
+            var location = new Point(rnd.Next(0, pbCanvas.Width - size.Width), rnd.Next(label1.Size.Height + 22, pbCanvas.Height - 22));
+
+            bonusSpeed.Add(new Bonus(Brushes.Green, size, location));
+        }
+
+        //Spawn of Slow Motion Bonus
+
+        public void SetBonusSlow() {
+            var size = new Size(18, 18);
+            var location = new Point(rnd.Next(0, pbCanvas.Width - size.Width), rnd.Next(label1.Size.Height + 22, pbCanvas.Height - 22));
+
+            bonusSlow.Add(new Bonus(Brushes.Gray, size, location));
+        }
+
+        //Spawn of Inverted Controls Bonus
+
+        public void SetBonusInvert() {
+            var size = new Size(18, 18);
+            var location = new Point(rnd.Next(0, pbCanvas.Width - size.Width), rnd.Next(label1.Size.Height + 22, pbCanvas.Height - 22));
+
+            bonusInvert.Add(new Bonus(Brushes.Aqua, size, location));
         }
 
         //Starting Game
@@ -243,20 +249,18 @@ namespace Tron {
 
             if (position == Position.Up) {
                 direction.Y--;
-                SetPlayer1Tail();
             }
             if (position == Position.Down) {
                 direction.Y++;
-                SetPlayer1Tail();
             }
             if (position == Position.Left) {
                 direction.X--;
-                SetPlayer1Tail();
             }
             if (position == Position.Right) {
                 direction.X++;
-                SetPlayer1Tail();
             }
+
+            SetPlayer1Tail();
 
             player1.Move(direction);
 
@@ -273,20 +277,21 @@ namespace Tron {
 
             if (position1 == Position1.W) {
                 direction.Y--;
-                SetPlayer2Tail();
             }
+
             if (position1 == Position1.S) {
                 direction.Y++;
-                SetPlayer2Tail();
             }
+
             if (position1 == Position1.A) {
                 direction.X--;
-                SetPlayer2Tail();
             }
+
             if (position1 == Position1.D) {
                 direction.X++;
-                SetPlayer2Tail();
             }
+
+            SetPlayer2Tail();
 
             player2.Move(direction);
 
@@ -303,20 +308,21 @@ namespace Tron {
 
             if (position == Position.Up) {
                 direction.Y++;
-                SetPlayer1Tail();
             }
+
             if (position == Position.Down) {
                 direction.Y--;
-                SetPlayer1Tail();
             }
+
             if (position == Position.Left) {
                 direction.X++;
-                SetPlayer1Tail();
             }
+
             if (position == Position.Right) {
                 direction.X--;
-                SetPlayer1Tail();
             }
+
+            SetPlayer1Tail();
 
             player1.Move(direction);
 
@@ -333,20 +339,21 @@ namespace Tron {
 
             if (position1 == Position1.W) {
                 direction.Y++;
-                SetPlayer2Tail();
             }
+
             if (position1 == Position1.S) {
                 direction.Y--;
-                SetPlayer2Tail();
             }
+
             if (position1 == Position1.A) {
                 direction.X++;
-                SetPlayer2Tail();
             }
+
             if (position1 == Position1.D) {
                 direction.X--;
-                SetPlayer2Tail();
             }
+
+            SetPlayer2Tail();
 
             player2.Move(direction);
 
@@ -393,11 +400,18 @@ namespace Tron {
         private void TimerBonusLength_Tick(object sender, EventArgs e) {
             if (player1.Speed > 0) {
                 player1.Speed = 3;
+                LengthSpeed1.Visible = false;
+                TimerLabelSpeed1.Enabled = false;
             }
 
             if (player2.Speed > 0) {
                 player2.Speed = 3;
+                LengthSpeed2.Visible = false;
+                TimerLabelSpeed2.Enabled = false;
             }
+
+            secSpeed1 = 5;
+            secSpeed2 = 5;
 
             TimerBonusLength.Enabled = false;
 
@@ -429,6 +443,13 @@ namespace Tron {
                 player2.Speed = 3;
             }
 
+            secSlow1 = 5;
+            secSlow2 = 5;
+
+            LengthSlow1.Visible = false;
+            LengthSlow2.Visible = false;
+            TimerLabelSlow1.Enabled = false;
+            TimerLabelSlow2.Enabled = false;
             TimerSlowBonusLength.Enabled = false;
 
             this.pbCanvas.Refresh();
@@ -486,6 +507,8 @@ namespace Tron {
                         Timer.Enabled = true;
                     }
                 }
+
+                LengthInvert2.Visible = false;
             }
 
             if (Timer1Inverted.Enabled == true) {
@@ -520,11 +543,54 @@ namespace Tron {
                         Timer1.Enabled = true;
                     }
                 }
+
+                LengthInvert1.Visible = false;
             }
 
+            secInvert1 = 5;
+            secInvert2 = 5;
+
+            TimerLabelInvert1.Enabled = false;
+            TimerLabelInvert2.Enabled = false;
             TimerInvertBonusLength.Enabled = false;
 
             this.pbCanvas.Refresh();
+        }
+
+        private void TimerLabelSpeed1_Tick(object sender, EventArgs e) {
+            secSpeed1--;
+
+            LengthSpeed1.Text = "Red: " + secSpeed1;
+        }
+
+        private void TimerLabelSpeed2_Tick(object sender, EventArgs e) {
+            secSpeed2--;
+            
+            LengthSpeed2.Text = "Blue: " + secSpeed2;
+        }
+
+        private void TimerLabelSlow1_Tick(object sender, EventArgs e) {
+            secSlow1--;
+
+            LengthSlow1.Text = "Red: " + secSlow1;
+        }
+
+        private void TimerLabelSlow2_Tick(object sender, EventArgs e) {
+            secSlow2--;
+
+            LengthSlow2.Text = "Blue: " + secSlow2;
+        }
+
+        private void TimerLabelInvert1_Tick(object sender, EventArgs e) {
+            secInvert1--;
+
+            LengthInvert1.Text = "Blue: " + secInvert1;
+        }
+
+        private void TimerLabelInvert2_Tick(object sender, EventArgs e) {
+            secInvert2--;
+
+            LengthInvert2.Text = "Red: " + secInvert2;
         }
 
         private void EndGameScore() {
@@ -544,6 +610,12 @@ namespace Tron {
             TimerInvertBonus.Enabled = false;
             TimerInverted.Enabled = false;
             Timer1Inverted.Enabled = false;
+            LengthSpeed1.Visible = false;
+            LengthSpeed2.Visible = false;
+            LengthSlow1.Visible = false;
+            LengthSlow2.Visible = false;
+            LengthInvert1.Visible = false;
+            LengthInvert2.Visible = false;
         }
 
         //Score for Player1
@@ -568,7 +640,8 @@ namespace Tron {
             var bonus1SpeedEffect = new List<Bonus>();
             var bonus2SpeedEffect = new List<Bonus>();
 
-            var bonusSlowEffect = new List<Bonus>();
+            var bonus1SlowEffect = new List<Bonus>();
+            var bonus2SlowEffect = new List<Bonus>();
 
             var bonus1InvertEffect = new List<Bonus>();
             var bonus2InvertEffect = new List<Bonus>();
@@ -656,11 +729,11 @@ namespace Tron {
 
             foreach (var item in bonusSlow) {
                 if (player1.Intersect(item.Rectangle)) {
-                    bonusSlowEffect.Add(item);
+                    bonus1SlowEffect.Add(item);
                 }
 
                 if (player2.Intersect(item.Rectangle)) {
-                    bonusSlowEffect.Add(item);
+                    bonus2SlowEffect.Add(item);
                 }
             }
 
@@ -680,6 +753,9 @@ namespace Tron {
 
             foreach (var item in bonus1SpeedEffect) {
                 if (item is Bonus) {
+                    TimerLabelSpeed1.Enabled = true;
+                    LengthSpeed1.Visible = true;
+                    LengthSpeed1.Text = "Red: 5";
                     TimerBonusLength.Enabled = true;
                     if (player1.Speed <= 3) {
                         player1.Speed += 2;
@@ -692,6 +768,9 @@ namespace Tron {
 
             foreach (var item in bonus2SpeedEffect) {
                 if (item is Bonus) {
+                    TimerLabelSpeed2.Enabled = true;
+                    LengthSpeed2.Visible = true;
+                    LengthSpeed2.Text = "Blue: 5";
                     TimerBonusLength.Enabled = true;
                     if (player2.Speed <= 3) {
                         player2.Speed += 2;
@@ -700,10 +779,35 @@ namespace Tron {
                 }
             }
 
-            //Effect of Slow Bonus
+            //Effect of Slow Bonus for Player1
 
-            foreach (var item in bonusSlowEffect) {
+            foreach (var item in bonus1SlowEffect) {
                 if (item is Bonus) {
+                    TimerLabelSlow1.Enabled = true;
+                    TimerLabelSlow2.Enabled = true;
+                    LengthSlow1.Visible = true;
+                    LengthSlow2.Visible = true;
+                    LengthSlow1.Text = "Red: 5";
+                    LengthSlow2.Text = "Blue: 5";
+                    TimerSlowBonusLength.Enabled = true;
+                    if (player1.Speed >= 3 && player2.Speed >= 3) {
+                        player1.Speed -= 1;
+                        player2.Speed -= 1;
+                    }
+                    bonusSlow.Remove(item);
+                }
+            }
+
+            //Effect of Slow Bonus for Player1
+
+            foreach (var item in bonus2SlowEffect) {
+                if (item is Bonus) {
+                    TimerLabelSlow1.Enabled = true;
+                    TimerLabelSlow2.Enabled = true;
+                    LengthSlow1.Visible = true;
+                    LengthSlow2.Visible = true;
+                    LengthSlow1.Text = "Red: 5";
+                    LengthSlow2.Text = "Blue: 5";
                     TimerSlowBonusLength.Enabled = true;
                     if (player1.Speed >= 3 && player2.Speed >= 3) {
                         player1.Speed -= 1;
@@ -753,6 +857,10 @@ namespace Tron {
                         }
                     }
 
+                    TimerLabelInvert1.Enabled = true;
+                    LengthInvert1.Visible = true;
+                    LengthInvert1.Text = "Blue: 5";
+
                     bonusInvert.Remove(item);
                 }
             }
@@ -795,12 +903,16 @@ namespace Tron {
                         }
                     }
 
+                    TimerLabelInvert2.Enabled = true;
+                    LengthInvert2.Visible = true;
+                    LengthInvert2.Text = "Red: 5";
+
                     bonusInvert.Remove(item);
                 }
             }
         }
 
-        //Score Labels
+        //Score Labels and Length of Bonuses
 
         private void Form1_Load(object sender, EventArgs e) {
             label1.Location = new Point(pbCanvas.Width - 190, 10);
@@ -812,6 +924,42 @@ namespace Tron {
             label2.BackColor = Color.Black;
             label2.ForeColor = Color.FromArgb(0, 0, 255);
             label2.Font = new Font("Arial", 20);
+
+            LengthSpeed1.Visible = false;
+            LengthSpeed1.Location = new Point(10, pbCanvas.Height - LengthSpeed2.Size.Height - 20);
+            LengthSpeed1.BackColor = Color.Black;
+            LengthSpeed1.ForeColor = Color.Green;
+            LengthSpeed1.Font = new Font("Arial", 20);
+
+            LengthSpeed2.Visible = false;
+            LengthSpeed2.Location = new Point(pbCanvas.Width - LengthSpeed2.Size.Width - 60, pbCanvas.Height - LengthSpeed2.Size.Height - 20);
+            LengthSpeed2.BackColor = Color.Black;
+            LengthSpeed2.ForeColor = Color.Green;
+            LengthSpeed2.Font = new Font("Arial", 20);
+
+            LengthSlow1.Visible = false;
+            LengthSlow1.Location = new Point(LengthSpeed1.Size.Width + 10, pbCanvas.Height - LengthSlow1.Size.Height - 20);
+            LengthSlow1.BackColor = Color.Black;
+            LengthSlow1.ForeColor = Color.Gray;
+            LengthSlow1.Font = new Font("Arial", 20);
+
+            LengthSlow2.Visible = false;
+            LengthSlow2.Location = new Point(pbCanvas.Width - LengthSpeed2.Size.Width - 110, pbCanvas.Height - LengthSlow2.Size.Height - 20);
+            LengthSlow2.BackColor = Color.Black;
+            LengthSlow2.ForeColor = Color.Gray;
+            LengthSlow2.Font = new Font("Arial", 20);
+
+            LengthInvert1.Visible = false;
+            LengthInvert1.Location = new Point(pbCanvas.Width - LengthSpeed2.Size.Width * 2 - 110, pbCanvas.Height - LengthInvert1.Size.Height - 20);
+            LengthInvert1.BackColor = Color.Black;
+            LengthInvert1.ForeColor = Color.Aqua;
+            LengthInvert1.Font = new Font("Arial", 20);
+
+            LengthInvert2.Visible = false;
+            LengthInvert2.Location = new Point(LengthSpeed1.Size.Width * 2 + 10, pbCanvas.Height - LengthInvert1.Size.Height - 20);
+            LengthInvert2.BackColor = Color.Black;
+            LengthInvert2.ForeColor = Color.Aqua;
+            LengthInvert2.Font = new Font("Arial", 20);
         }
     }
 }

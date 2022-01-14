@@ -9,3 +9,4 @@ Tron Hra
 1.7.1 ... Fix
 1.8.1 ... Fix
 1.9.1 ... Fix
+1.10.1 ... Time of Bonuses

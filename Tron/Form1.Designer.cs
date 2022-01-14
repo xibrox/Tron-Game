@@ -39,6 +39,18 @@ namespace Tron {
             this.TimerInvertBonusLength = new System.Windows.Forms.Timer(this.components);
             this.TimerInverted = new System.Windows.Forms.Timer(this.components);
             this.Timer1Inverted = new System.Windows.Forms.Timer(this.components);
+            this.LengthSpeed1 = new System.Windows.Forms.Label();
+            this.LengthSpeed2 = new System.Windows.Forms.Label();
+            this.TimerLabelSpeed1 = new System.Windows.Forms.Timer(this.components);
+            this.TimerLabelSpeed2 = new System.Windows.Forms.Timer(this.components);
+            this.TimerLabelSlow1 = new System.Windows.Forms.Timer(this.components);
+            this.TimerLabelSlow2 = new System.Windows.Forms.Timer(this.components);
+            this.LengthSlow2 = new System.Windows.Forms.Label();
+            this.LengthSlow1 = new System.Windows.Forms.Label();
+            this.LengthInvert1 = new System.Windows.Forms.Label();
+            this.LengthInvert2 = new System.Windows.Forms.Label();
+            this.TimerLabelInvert1 = new System.Windows.Forms.Timer(this.components);
+            this.TimerLabelInvert2 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -128,11 +140,113 @@ namespace Tron {
             this.Timer1Inverted.Interval = 10;
             this.Timer1Inverted.Tick += new System.EventHandler(this.Timer1Inverted_Tick);
             // 
+            // LengthSpeed1
+            // 
+            this.LengthSpeed1.AutoSize = true;
+            this.LengthSpeed1.BackColor = System.Drawing.SystemColors.ControlText;
+            this.LengthSpeed1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LengthSpeed1.Location = new System.Drawing.Point(12, 426);
+            this.LengthSpeed1.Name = "LengthSpeed1";
+            this.LengthSpeed1.Size = new System.Drawing.Size(39, 15);
+            this.LengthSpeed1.TabIndex = 3;
+            this.LengthSpeed1.Text = "Red: 5";
+            // 
+            // LengthSpeed2
+            // 
+            this.LengthSpeed2.AutoSize = true;
+            this.LengthSpeed2.BackColor = System.Drawing.SystemColors.ControlText;
+            this.LengthSpeed2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LengthSpeed2.Location = new System.Drawing.Point(746, 426);
+            this.LengthSpeed2.Name = "LengthSpeed2";
+            this.LengthSpeed2.Size = new System.Drawing.Size(42, 15);
+            this.LengthSpeed2.TabIndex = 4;
+            this.LengthSpeed2.Text = "Blue: 5";
+            // 
+            // TimerLabelSpeed1
+            // 
+            this.TimerLabelSpeed1.Interval = 1000;
+            this.TimerLabelSpeed1.Tick += new System.EventHandler(this.TimerLabelSpeed1_Tick);
+            // 
+            // TimerLabelSpeed2
+            // 
+            this.TimerLabelSpeed2.Interval = 1000;
+            this.TimerLabelSpeed2.Tick += new System.EventHandler(this.TimerLabelSpeed2_Tick);
+            // 
+            // TimerLabelSlow1
+            // 
+            this.TimerLabelSlow1.Interval = 1000;
+            this.TimerLabelSlow1.Tick += new System.EventHandler(this.TimerLabelSlow1_Tick);
+            // 
+            // TimerLabelSlow2
+            // 
+            this.TimerLabelSlow2.Interval = 1000;
+            this.TimerLabelSlow2.Tick += new System.EventHandler(this.TimerLabelSlow2_Tick);
+            // 
+            // LengthSlow2
+            // 
+            this.LengthSlow2.AutoSize = true;
+            this.LengthSlow2.BackColor = System.Drawing.SystemColors.ControlText;
+            this.LengthSlow2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LengthSlow2.Location = new System.Drawing.Point(698, 426);
+            this.LengthSlow2.Name = "LengthSlow2";
+            this.LengthSlow2.Size = new System.Drawing.Size(42, 15);
+            this.LengthSlow2.TabIndex = 6;
+            this.LengthSlow2.Text = "Blue: 5";
+            // 
+            // LengthSlow1
+            // 
+            this.LengthSlow1.AutoSize = true;
+            this.LengthSlow1.BackColor = System.Drawing.SystemColors.ControlText;
+            this.LengthSlow1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LengthSlow1.Location = new System.Drawing.Point(57, 426);
+            this.LengthSlow1.Name = "LengthSlow1";
+            this.LengthSlow1.Size = new System.Drawing.Size(39, 15);
+            this.LengthSlow1.TabIndex = 7;
+            this.LengthSlow1.Text = "Red: 5";
+            // 
+            // LengthInvert1
+            // 
+            this.LengthInvert1.AutoSize = true;
+            this.LengthInvert1.BackColor = System.Drawing.SystemColors.ControlText;
+            this.LengthInvert1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LengthInvert1.Location = new System.Drawing.Point(102, 426);
+            this.LengthInvert1.Name = "LengthInvert1";
+            this.LengthInvert1.Size = new System.Drawing.Size(42, 15);
+            this.LengthInvert1.TabIndex = 8;
+            this.LengthInvert1.Text = "Blue: 5";
+            // 
+            // LengthInvert2
+            // 
+            this.LengthInvert2.AutoSize = true;
+            this.LengthInvert2.BackColor = System.Drawing.SystemColors.ControlText;
+            this.LengthInvert2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.LengthInvert2.Location = new System.Drawing.Point(653, 426);
+            this.LengthInvert2.Name = "LengthInvert2";
+            this.LengthInvert2.Size = new System.Drawing.Size(39, 15);
+            this.LengthInvert2.TabIndex = 9;
+            this.LengthInvert2.Text = "Red: 5";
+            // 
+            // TimerLabelInvert1
+            // 
+            this.TimerLabelInvert1.Interval = 1000;
+            this.TimerLabelInvert1.Tick += new System.EventHandler(this.TimerLabelInvert1_Tick);
+            // 
+            // TimerLabelInvert2
+            // 
+            this.TimerLabelInvert2.Interval = 1000;
+            this.TimerLabelInvert2.Tick += new System.EventHandler(this.TimerLabelInvert2_Tick);
+            // 
             // Tron
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.LengthInvert2);
+            this.Controls.Add(this.LengthInvert1);
+            this.Controls.Add(this.LengthSlow1);
+            this.Controls.Add(this.LengthSlow2);
+            this.Controls.Add(this.LengthSpeed2);
+            this.Controls.Add(this.LengthSpeed1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pbCanvas);
@@ -165,6 +279,18 @@ namespace Tron {
         private System.Windows.Forms.Timer TimerInvertBonusLength;
         private System.Windows.Forms.Timer TimerInverted;
         private System.Windows.Forms.Timer Timer1Inverted;
+        private System.Windows.Forms.Label LengthSpeed1;
+        private System.Windows.Forms.Label LengthSpeed2;
+        private System.Windows.Forms.Timer TimerLabelSpeed1;
+        private System.Windows.Forms.Timer TimerLabelSpeed2;
+        private System.Windows.Forms.Timer TimerLabelSlow1;
+        private System.Windows.Forms.Timer TimerLabelSlow2;
+        private System.Windows.Forms.Label LengthSlow2;
+        private System.Windows.Forms.Label LengthSlow1;
+        private System.Windows.Forms.Label LengthInvert1;
+        private System.Windows.Forms.Label LengthInvert2;
+        private System.Windows.Forms.Timer TimerLabelInvert1;
+        private System.Windows.Forms.Timer TimerLabelInvert2;
     }
 }
 
