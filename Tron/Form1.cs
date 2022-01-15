@@ -94,7 +94,7 @@ namespace Tron {
             var size = new Size(player1.Size.Width, player1.Size.Height);
             var location = new Point(player1.Location.X, player1.Location.Y);
 
-            players1.Add(new Player(new SolidBrush(Color.FromArgb(85, 255, 0, 0)), size, location, 3));
+            players1.Add(new Player(new SolidBrush(Color.FromArgb(255, 255, 0, 0)), size, location, 3));
         }
 
         //Spawning Tail for Player1
@@ -103,7 +103,7 @@ namespace Tron {
             var size = new Size(player2.Size.Width, player2.Size.Height);
             var location = new Point(player2.Location.X, player2.Location.Y);
 
-            players2.Add(new Player(new SolidBrush(Color.FromArgb(85, 0, 0, 255)), size, location, 3));
+            players2.Add(new Player(new SolidBrush(Color.FromArgb(255, 0, 0, 255)), size, location, 3));
         }
 
         //Spawn of Speed Bonus
@@ -684,6 +684,7 @@ namespace Tron {
             bonusSlow.Clear();
             bonusSpeed.Clear();
             bonusInvert.Clear();
+            bonusIncrease.Clear();
             Timer.Enabled = false;
             Timer1.Enabled = false;
             TimerBonus.Enabled = false;
