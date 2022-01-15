@@ -140,6 +140,17 @@ namespace Tron {
                 TimerSlowBonus.Enabled = true;
                 Timer2.Enabled = true;
                 TimerInvertBonus.Enabled = true;
+                GameOver.Visible = false;
+
+                if (redScore == 5 && blueScore == 5) {
+                    redScore = 0;
+                    blueScore = 0;
+                }
+
+                else if (redScore == 5 || blueScore == 5) {
+                    redScore = 0;
+                    blueScore = 0;
+                }
             }
         }
 
@@ -183,32 +194,50 @@ namespace Tron {
             }
 
             if (Keys.Space == e.KeyCode) {
-                position = Position.Left;
-                position1 = Position1.D;
+                if (position == Position.Null && position1 == Position1.Null) {
+                    position = Position.Left;
+                    position1 = Position1.D;
+                }
                 StartGame();
             }
 
             //Movement for Player1
 
             if (Keys.Up == e.KeyCode) {
+                if (position == Position.Null) {
+                    return;
+                }
+
                 if (position != Position.Down) {
                     position = Position.Up;
                 }
             }
 
             if (Keys.Left == e.KeyCode) {
+                if (position == Position.Null) {
+                    return;
+                }
+
                 if (position != Position.Right) {
                     position = Position.Left;
                 }
             }
 
             if (Keys.Down == e.KeyCode) {
+                if (position == Position.Null) {
+                    return;
+                }
+
                 if (position != Position.Up) {
                     position = Position.Down;
                 }
             }
 
             if (Keys.Right == e.KeyCode) {
+                if (position == Position.Null) {
+                    return;
+                }
+
                 if (position != Position.Left) {
                     position = Position.Right;
                 }
@@ -217,24 +246,40 @@ namespace Tron {
             //Movement for Player2
 
             if (Keys.W == e.KeyCode) {
+                if (position1 == Position1.Null) {
+                    return;
+                }
+
                 if (position1 != Position1.S) {
                     position1 = Position1.W;
                 }
             }
 
             if (Keys.A == e.KeyCode) {
+                if (position1 == Position1.Null) {
+                    return;
+                }
+
                 if (position1 != Position1.D) {
                     position1 = Position1.A;
                 }
             }
 
             if (Keys.S == e.KeyCode) {
+                if (position1 == Position1.Null) {
+                    return;
+                }
+
                 if (position1 != Position1.W) {
                     position1 = Position1.S;
                 }
             }
 
             if (Keys.D == e.KeyCode) {
+                if (position1 == Position1.Null) {
+                    return;
+                }
+
                 if (position1 != Position1.A) {
                     position1 = Position1.D;
                 }
@@ -557,6 +602,9 @@ namespace Tron {
             this.pbCanvas.Refresh();
         }
 
+        //All Timers for Labels
+        //1 tick = 1000 ms (1 second)
+
         private void TimerLabelSpeed1_Tick(object sender, EventArgs e) {
             secSpeed1--;
 
@@ -593,6 +641,8 @@ namespace Tron {
             LengthInvert2.Text = "Red: " + secInvert2;
         }
 
+        //If Someone Dies
+
         private void EndGameScore() {
             players1.Clear();
             players2.Clear();
@@ -621,8 +671,28 @@ namespace Tron {
         //Score for Player1
 
         private void Score1() {
-            redScore++;
-            label1.Text = "Red Score: " + redScore;
+            if (redScore < 5) {
+                redScore++;
+                label1.Text = "Red Score: " + redScore;
+            }
+
+            if (redScore == 5 && blueScore == 5) {
+                redScore = 0;
+                blueScore = 0;
+                label1.Text = "Red Score: " + redScore;
+                label2.Text = "Blue Score: " + blueScore;
+                GameOver.Visible = true;
+                GameOver.Text = "                 Tie\nPress Space To Continue";
+            }
+
+            if (redScore == 5 || blueScore == 5) {
+                redScore = 0;
+                blueScore = 0;
+                label1.Text = "Red Score: " + redScore;
+                label2.Text = "Blue Score: " + blueScore;
+                GameOver.Visible = true;
+                GameOver.Text = "      Red Player Won\nPress Space To Continue";
+            }
 
             EndGameScore();
         }
@@ -630,8 +700,28 @@ namespace Tron {
         //Score for Player2
 
         private void Score2() {
-            blueScore++;
-            label2.Text = "Blue Score: " + blueScore;
+            if (blueScore < 5) {
+                blueScore++;
+                label2.Text = "Blue Score: " + blueScore;
+            }
+
+            if (redScore == 5 && blueScore == 5) {
+                redScore = 0;
+                blueScore = 0;
+                label1.Text = "Red Score: " + redScore;
+                label2.Text = "Blue Score: " + blueScore;
+                GameOver.Visible = true;
+                GameOver.Text = "                 Tie\nPress Space To Continue";
+            }
+
+            if (redScore == 5 || blueScore == 5) {
+                redScore = 0;
+                blueScore = 0;
+                label1.Text = "Red Score: " + redScore;
+                label2.Text = "Blue Score: " + blueScore;
+                GameOver.Visible = true;
+                GameOver.Text = "      Blue Player Won\nPress Space To Continue";
+            }
 
             EndGameScore();
         }
@@ -817,7 +907,7 @@ namespace Tron {
                 }
             }
 
-            //Inverted Controls Effect
+            //Inverted Controls Effect for Player2
 
             foreach (var item in bonus1InvertEffect) {
                 if (item is Bonus) {
@@ -864,6 +954,8 @@ namespace Tron {
                     bonusInvert.Remove(item);
                 }
             }
+
+            //Inverted Controls Effect for Player1
 
             foreach (var item in bonus2InvertEffect) {
                 if (item is Bonus) {
@@ -924,6 +1016,13 @@ namespace Tron {
             label2.BackColor = Color.Black;
             label2.ForeColor = Color.FromArgb(0, 0, 255);
             label2.Font = new Font("Arial", 20);
+
+            GameOver.Visible = false;
+            GameOver.Location = new Point(pbCanvas.Width / 2 - GameOver.Size.Width * 14 / 3, pbCanvas.Height / 2 - GameOver.Size.Height * 4);
+            GameOver.BackColor = Color.Black;
+            GameOver.ForeColor = Color.White;
+            GameOver.Font = new Font("Arial", 40);
+            GameOver.Text = "                 Tie\nPress Space To Continue";
 
             LengthSpeed1.Visible = false;
             LengthSpeed1.Location = new Point(pbCanvas.Width - LengthSpeed1.Size.Width - 60, pbCanvas.Height - LengthSpeed1.Size.Height - 20);

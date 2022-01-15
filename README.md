@@ -11,3 +11,4 @@ Tron Hra
 1.9.1 ... Fix
 1.10.1 ... Time of Bonuses
 1.11.1 ... Fixes
+1.11.1 ... Game Over Label, Limit of Score = 5 + Fixes

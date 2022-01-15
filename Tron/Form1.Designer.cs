@@ -51,6 +51,7 @@ namespace Tron {
             this.LengthInvert2 = new System.Windows.Forms.Label();
             this.TimerLabelInvert1 = new System.Windows.Forms.Timer(this.components);
             this.TimerLabelInvert2 = new System.Windows.Forms.Timer(this.components);
+            this.GameOver = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -236,11 +237,23 @@ namespace Tron {
             this.TimerLabelInvert2.Interval = 1000;
             this.TimerLabelInvert2.Tick += new System.EventHandler(this.TimerLabelInvert2_Tick);
             // 
+            // GameOver
+            // 
+            this.GameOver.AutoSize = true;
+            this.GameOver.BackColor = System.Drawing.SystemColors.ControlText;
+            this.GameOver.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.GameOver.Location = new System.Drawing.Point(381, 218);
+            this.GameOver.Name = "GameOver";
+            this.GameOver.Size = new System.Drawing.Size(66, 15);
+            this.GameOver.TabIndex = 10;
+            this.GameOver.Text = "Game Over";
+            // 
             // Tron
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.GameOver);
             this.Controls.Add(this.LengthInvert2);
             this.Controls.Add(this.LengthInvert1);
             this.Controls.Add(this.LengthSlow1);
@@ -291,6 +304,7 @@ namespace Tron {
         private System.Windows.Forms.Label LengthInvert2;
         private System.Windows.Forms.Timer TimerLabelInvert1;
         private System.Windows.Forms.Timer TimerLabelInvert2;
+        private System.Windows.Forms.Label GameOver;
     }
 }
 
