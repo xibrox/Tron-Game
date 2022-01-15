@@ -18,9 +18,12 @@ namespace Tron {
         List<Bonus> bonusSpeed = new List<Bonus>();
         List<Bonus> bonusSlow = new List<Bonus>();
         List<Bonus> bonusInvert = new List<Bonus>();
+        List<Bonus> bonusIncrease = new List<Bonus>();
         Random rnd = new Random();
         int redScore = 0;
         int blueScore = 0;
+        int redCount = 252;
+        int blueCount = 252;
         int secSpeed1 = 5;
         int secSpeed2 = 5;
         int secSlow1 = 5;
@@ -91,7 +94,7 @@ namespace Tron {
             var size = new Size(player1.Size.Width, player1.Size.Height);
             var location = new Point(player1.Location.X, player1.Location.Y);
 
-            players1.Add(new Player(Brushes.Red, size, location, 3));
+            players1.Add(new Player(new SolidBrush(Color.FromArgb(85, 255, 0, 0)), size, location, 3));
         }
 
         //Spawning Tail for Player1
@@ -100,14 +103,14 @@ namespace Tron {
             var size = new Size(player2.Size.Width, player2.Size.Height);
             var location = new Point(player2.Location.X, player2.Location.Y);
 
-            players2.Add(new Player(Brushes.Blue, size, location, 3));
+            players2.Add(new Player(new SolidBrush(Color.FromArgb(85, 0, 0, 255)), size, location, 3));
         }
 
         //Spawn of Speed Bonus
 
         public void SetBonusSpeed() {
             var size = new Size(18, 18);
-            var location = new Point(rnd.Next(0, pbCanvas.Width - size.Width), rnd.Next(label1.Size.Height + 22, pbCanvas.Height - 22));
+            var location = new Point(rnd.Next(0, pbCanvas.Width - size.Width), rnd.Next(50, pbCanvas.Height - 22));
 
             bonusSpeed.Add(new Bonus(Brushes.Green, size, location));
         }
@@ -116,7 +119,7 @@ namespace Tron {
 
         public void SetBonusSlow() {
             var size = new Size(18, 18);
-            var location = new Point(rnd.Next(0, pbCanvas.Width - size.Width), rnd.Next(label1.Size.Height + 22, pbCanvas.Height - 22));
+            var location = new Point(rnd.Next(0, pbCanvas.Width - size.Width), rnd.Next(50, pbCanvas.Height - 22));
 
             bonusSlow.Add(new Bonus(Brushes.Gray, size, location));
         }
@@ -125,9 +128,16 @@ namespace Tron {
 
         public void SetBonusInvert() {
             var size = new Size(18, 18);
-            var location = new Point(rnd.Next(0, pbCanvas.Width - size.Width), rnd.Next(label1.Size.Height + 22, pbCanvas.Height - 22));
+            var location = new Point(rnd.Next(0, pbCanvas.Width - size.Width), rnd.Next(50, pbCanvas.Height - 22));
 
             bonusInvert.Add(new Bonus(Brushes.Aqua, size, location));
+        }
+
+        public void SetBonusIncrease() {
+            var size = new Size(18, 18);
+            var location = new Point(rnd.Next(0, pbCanvas.Width - size.Width), rnd.Next(50, pbCanvas.Height - 22));
+
+            bonusIncrease.Add(new Bonus(Brushes.Coral, size, location));
         }
 
         //Starting Game
@@ -140,6 +150,7 @@ namespace Tron {
                 TimerSlowBonus.Enabled = true;
                 Timer2.Enabled = true;
                 TimerInvertBonus.Enabled = true;
+                TimerIncreaseBonus.Enabled = true;
                 GameOver.Visible = false;
 
                 if (redScore == 5 && blueScore == 5) {
@@ -176,14 +187,21 @@ namespace Tron {
             foreach (var item in bonusSlow) {
                 item.Draw(g);
             }
-            
+
             foreach (var item in bonusInvert) {
+                item.Draw(g);
+            }
+
+            foreach (var item in bonusIncrease) {
                 item.Draw(g);
             }
 
             player1.Draw(g);
 
             player2.Draw(g);
+
+            g.DrawString("Red Score: " + redScore, new Font("Arial", 20), Brushes.Red, new Point(pbCanvas.Width - 190, 10));
+            g.DrawString("Blue Score: " + blueScore, new Font("Arial", 20), Brushes.Blue, new Point(10, 10));
         }
 
         //Movement for Players
@@ -412,12 +430,12 @@ namespace Tron {
         //1 tick = 10 ms
 
         private void Timer2_Tick(object sender, EventArgs e) {
-            if (players1.Count > 252) {
+            if (players1.Count > redCount) {
                 SetPlayer1Tail();
                 players1.RemoveRange(0, 2);
             }
 
-            if (players2.Count > 252) {
+            if (players2.Count > blueCount) {
                 SetPlayer2Tail();
                 players2.RemoveRange(0, 2);
             }
@@ -602,6 +620,19 @@ namespace Tron {
             this.pbCanvas.Refresh();
         }
 
+        private void TimerIncreaseBonus_Tick(object sender, EventArgs e) {
+            if (bonusIncrease.Count == 4) {
+                return;
+            }
+            else {
+                SetBonusIncrease();
+            }
+
+            HandleCollision();
+
+            this.pbCanvas.Refresh();
+        }
+
         //All Timers for Labels
         //1 tick = 1000 ms (1 second)
 
@@ -658,6 +689,7 @@ namespace Tron {
             TimerBonus.Enabled = false;
             TimerSlowBonus.Enabled = false;
             TimerInvertBonus.Enabled = false;
+            TimerIncreaseBonus.Enabled = false;
             TimerInverted.Enabled = false;
             Timer1Inverted.Enabled = false;
             LengthSpeed1.Visible = false;
@@ -666,6 +698,9 @@ namespace Tron {
             LengthSlow2.Visible = false;
             LengthInvert1.Visible = false;
             LengthInvert2.Visible = false;
+
+            redCount = 252;
+            blueCount = 252;
         }
 
         //Score for Player1
@@ -673,14 +708,11 @@ namespace Tron {
         private void Score1() {
             if (redScore < 5) {
                 redScore++;
-                label1.Text = "Red Score: " + redScore;
             }
 
             if (redScore == 5 && blueScore == 5) {
                 redScore = 0;
                 blueScore = 0;
-                label1.Text = "Red Score: " + redScore;
-                label2.Text = "Blue Score: " + blueScore;
                 GameOver.Visible = true;
                 GameOver.Text = "                 Tie\nPress Space To Continue";
             }
@@ -688,8 +720,6 @@ namespace Tron {
             if (redScore == 5 || blueScore == 5) {
                 redScore = 0;
                 blueScore = 0;
-                label1.Text = "Red Score: " + redScore;
-                label2.Text = "Blue Score: " + blueScore;
                 GameOver.Visible = true;
                 GameOver.Text = "      Red Player Won\nPress Space To Continue";
             }
@@ -702,14 +732,11 @@ namespace Tron {
         private void Score2() {
             if (blueScore < 5) {
                 blueScore++;
-                label2.Text = "Blue Score: " + blueScore;
             }
 
             if (redScore == 5 && blueScore == 5) {
                 redScore = 0;
                 blueScore = 0;
-                label1.Text = "Red Score: " + redScore;
-                label2.Text = "Blue Score: " + blueScore;
                 GameOver.Visible = true;
                 GameOver.Text = "                 Tie\nPress Space To Continue";
             }
@@ -717,8 +744,6 @@ namespace Tron {
             if (redScore == 5 || blueScore == 5) {
                 redScore = 0;
                 blueScore = 0;
-                label1.Text = "Red Score: " + redScore;
-                label2.Text = "Blue Score: " + blueScore;
                 GameOver.Visible = true;
                 GameOver.Text = "      Blue Player Won\nPress Space To Continue";
             }
@@ -735,6 +760,9 @@ namespace Tron {
 
             var bonus1InvertEffect = new List<Bonus>();
             var bonus2InvertEffect = new List<Bonus>();
+
+            var bonus1IncreaseEffect = new List<Bonus>();
+            var bonus2IncreaseEffect = new List<Bonus>();
 
             Boundary boundary = new Boundary(0, pbCanvas.Size.Width, 0, pbCanvas.Size.Height);
 
@@ -836,6 +864,18 @@ namespace Tron {
 
                 if (player2.Intersect(item.Rectangle)) {
                     bonus2InvertEffect.Add(item);
+                }
+            }
+
+            //Increase Tail Bonus
+
+            foreach (var item in bonusIncrease) {
+                if (player1.Intersect(item.Rectangle)) {
+                    bonus1IncreaseEffect.Add(item);
+                }
+
+                if (player2.Intersect(item.Rectangle)) {
+                    bonus2IncreaseEffect.Add(item);
                 }
             }
 
@@ -1002,21 +1042,31 @@ namespace Tron {
                     bonusInvert.Remove(item);
                 }
             }
+
+            //Effect of Increase Tail Bonus for Player1 
+
+            foreach (var item in bonus1IncreaseEffect) {
+                if (item is Bonus) {
+                    redCount += 20;
+
+                    bonusIncrease.Remove(item);
+                }
+            }
+
+            //Effect of Increase Tail Bonus for Player2
+
+            foreach (var item in bonus2IncreaseEffect) {
+                if (item is Bonus) {
+                    blueCount += 20;
+
+                    bonusIncrease.Remove(item);
+                }
+            }
         }
 
         //Score Labels and Length of Bonuses
 
         private void Form1_Load(object sender, EventArgs e) {
-            label1.Location = new Point(pbCanvas.Width - 190, 10);
-            label1.BackColor = Color.Black;
-            label1.ForeColor = Color.FromArgb(255, 0, 0);
-            label1.Font = new Font("Arial", 20);
-
-            label2.Location = new Point(10, 10);
-            label2.BackColor = Color.Black;
-            label2.ForeColor = Color.FromArgb(0, 0, 255);
-            label2.Font = new Font("Arial", 20);
-
             GameOver.Visible = false;
             GameOver.Location = new Point(pbCanvas.Width / 2 - GameOver.Size.Width * 14 / 3, pbCanvas.Height / 2 - GameOver.Size.Height * 4);
             GameOver.BackColor = Color.Black;

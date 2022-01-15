@@ -28,8 +28,6 @@ namespace Tron {
             this.pbCanvas = new System.Windows.Forms.PictureBox();
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.Timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.TimerBonus = new System.Windows.Forms.Timer(this.components);
             this.TimerSlowBonus = new System.Windows.Forms.Timer(this.components);
             this.TimerSlowBonusLength = new System.Windows.Forms.Timer(this.components);
@@ -52,6 +50,7 @@ namespace Tron {
             this.TimerLabelInvert1 = new System.Windows.Forms.Timer(this.components);
             this.TimerLabelInvert2 = new System.Windows.Forms.Timer(this.components);
             this.GameOver = new System.Windows.Forms.Label();
+            this.TimerIncreaseBonus = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,28 +72,6 @@ namespace Tron {
             // 
             this.Timer1.Interval = 10;
             this.Timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.SystemColors.ControlText;
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(12, 76);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 15);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Red Score: 0";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.SystemColors.ControlText;
-            this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(12, 100);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 15);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Blue Score: 0";
             // 
             // TimerBonus
             // 
@@ -248,6 +225,11 @@ namespace Tron {
             this.GameOver.TabIndex = 10;
             this.GameOver.Text = "Game Over";
             // 
+            // TimerIncreaseBonus
+            // 
+            this.TimerIncreaseBonus.Interval = 5000;
+            this.TimerIncreaseBonus.Tick += new System.EventHandler(this.TimerIncreaseBonus_Tick);
+            // 
             // Tron
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -260,8 +242,6 @@ namespace Tron {
             this.Controls.Add(this.LengthSlow2);
             this.Controls.Add(this.LengthSpeed2);
             this.Controls.Add(this.LengthSpeed1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.pbCanvas);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -281,8 +261,6 @@ namespace Tron {
         private System.Windows.Forms.PictureBox pbCanvas;
         private System.Windows.Forms.Timer Timer;
         private System.Windows.Forms.Timer Timer1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Timer TimerBonus;
         private System.Windows.Forms.Timer TimerSlowBonus;
         private System.Windows.Forms.Timer TimerSlowBonusLength;
@@ -305,6 +283,7 @@ namespace Tron {
         private System.Windows.Forms.Timer TimerLabelInvert1;
         private System.Windows.Forms.Timer TimerLabelInvert2;
         private System.Windows.Forms.Label GameOver;
+        private System.Windows.Forms.Timer TimerIncreaseBonus;
     }
 }
 
