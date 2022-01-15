@@ -367,12 +367,12 @@ namespace Tron {
         //1 tick = 10 ms
 
         private void Timer2_Tick(object sender, EventArgs e) {
-            if (players1.Count > 302) {
+            if (players1.Count > 252) {
                 SetPlayer1Tail();
                 players1.RemoveRange(0, 2);
             }
 
-            if (players2.Count > 302) {
+            if (players2.Count > 252) {
                 SetPlayer2Tail();
                 players2.RemoveRange(0, 2);
             }
@@ -755,7 +755,7 @@ namespace Tron {
                 if (item is Bonus) {
                     TimerLabelSpeed1.Enabled = true;
                     LengthSpeed1.Visible = true;
-                    LengthSpeed1.Text = "Red: 5";
+                    LengthSpeed1.Text = "Red: " + secSpeed1;
                     TimerBonusLength.Enabled = true;
                     if (player1.Speed <= 3) {
                         player1.Speed += 2;
@@ -770,7 +770,7 @@ namespace Tron {
                 if (item is Bonus) {
                     TimerLabelSpeed2.Enabled = true;
                     LengthSpeed2.Visible = true;
-                    LengthSpeed2.Text = "Blue: 5";
+                    LengthSpeed2.Text = "Blue: " + secSpeed2;
                     TimerBonusLength.Enabled = true;
                     if (player2.Speed <= 3) {
                         player2.Speed += 2;
@@ -787,8 +787,8 @@ namespace Tron {
                     TimerLabelSlow2.Enabled = true;
                     LengthSlow1.Visible = true;
                     LengthSlow2.Visible = true;
-                    LengthSlow1.Text = "Red: 5";
-                    LengthSlow2.Text = "Blue: 5";
+                    LengthSlow1.Text = "Red: " + secSlow1;
+                    LengthSlow2.Text = "Blue: " + secSlow2;
                     TimerSlowBonusLength.Enabled = true;
                     if (player1.Speed >= 3 && player2.Speed >= 3) {
                         player1.Speed -= 1;
@@ -806,8 +806,8 @@ namespace Tron {
                     TimerLabelSlow2.Enabled = true;
                     LengthSlow1.Visible = true;
                     LengthSlow2.Visible = true;
-                    LengthSlow1.Text = "Red: 5";
-                    LengthSlow2.Text = "Blue: 5";
+                    LengthSlow1.Text = "Red: " + secSlow1;
+                    LengthSlow2.Text = "Blue: " + secSlow2;
                     TimerSlowBonusLength.Enabled = true;
                     if (player1.Speed >= 3 && player2.Speed >= 3) {
                         player1.Speed -= 1;
@@ -859,7 +859,7 @@ namespace Tron {
 
                     TimerLabelInvert1.Enabled = true;
                     LengthInvert1.Visible = true;
-                    LengthInvert1.Text = "Blue: 5";
+                    LengthInvert1.Text = "Blue: " + secInvert1;
 
                     bonusInvert.Remove(item);
                 }
@@ -905,7 +905,7 @@ namespace Tron {
 
                     TimerLabelInvert2.Enabled = true;
                     LengthInvert2.Visible = true;
-                    LengthInvert2.Text = "Red: 5";
+                    LengthInvert2.Text = "Red: " + secInvert2;
 
                     bonusInvert.Remove(item);
                 }
@@ -926,37 +926,37 @@ namespace Tron {
             label2.Font = new Font("Arial", 20);
 
             LengthSpeed1.Visible = false;
-            LengthSpeed1.Location = new Point(10, pbCanvas.Height - LengthSpeed2.Size.Height - 20);
+            LengthSpeed1.Location = new Point(pbCanvas.Width - LengthSpeed1.Size.Width - 60, pbCanvas.Height - LengthSpeed1.Size.Height - 20);
             LengthSpeed1.BackColor = Color.Black;
             LengthSpeed1.ForeColor = Color.Green;
             LengthSpeed1.Font = new Font("Arial", 20);
 
             LengthSpeed2.Visible = false;
-            LengthSpeed2.Location = new Point(pbCanvas.Width - LengthSpeed2.Size.Width - 60, pbCanvas.Height - LengthSpeed2.Size.Height - 20);
+            LengthSpeed2.Location = new Point(10, pbCanvas.Height - LengthSpeed2.Size.Height - 20);
             LengthSpeed2.BackColor = Color.Black;
             LengthSpeed2.ForeColor = Color.Green;
             LengthSpeed2.Font = new Font("Arial", 20);
 
             LengthSlow1.Visible = false;
-            LengthSlow1.Location = new Point(LengthSpeed1.Size.Width + 10, pbCanvas.Height - LengthSlow1.Size.Height - 20);
+            LengthSlow1.Location = new Point(pbCanvas.Width / 2 - LengthSlow1.Size.Width * 3, pbCanvas.Height - LengthSlow1.Size.Height - 20);
             LengthSlow1.BackColor = Color.Black;
             LengthSlow1.ForeColor = Color.Gray;
             LengthSlow1.Font = new Font("Arial", 20);
 
             LengthSlow2.Visible = false;
-            LengthSlow2.Location = new Point(pbCanvas.Width - LengthSpeed2.Size.Width - 110, pbCanvas.Height - LengthSlow2.Size.Height - 20);
+            LengthSlow2.Location = new Point(pbCanvas.Width / 2 + LengthSlow2.Size.Width / 2, pbCanvas.Height - LengthSlow2.Size.Height - 20);
             LengthSlow2.BackColor = Color.Black;
             LengthSlow2.ForeColor = Color.Gray;
             LengthSlow2.Font = new Font("Arial", 20);
 
             LengthInvert1.Visible = false;
-            LengthInvert1.Location = new Point(pbCanvas.Width - LengthSpeed2.Size.Width * 2 - 110, pbCanvas.Height - LengthInvert1.Size.Height - 20);
+            LengthInvert1.Location = new Point(LengthSpeed1.Size.Width + 20, pbCanvas.Height - LengthInvert1.Size.Height - 20);
             LengthInvert1.BackColor = Color.Black;
             LengthInvert1.ForeColor = Color.Aqua;
             LengthInvert1.Font = new Font("Arial", 20);
 
             LengthInvert2.Visible = false;
-            LengthInvert2.Location = new Point(LengthSpeed1.Size.Width * 2 + 10, pbCanvas.Height - LengthInvert1.Size.Height - 20);
+            LengthInvert2.Location = new Point(pbCanvas.Width - LengthSpeed2.Size.Width * 2, pbCanvas.Height - LengthInvert2.Size.Height - 20);
             LengthInvert2.BackColor = Color.Black;
             LengthInvert2.ForeColor = Color.Aqua;
             LengthInvert2.Font = new Font("Arial", 20);
