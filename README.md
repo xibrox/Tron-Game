@@ -14,3 +14,4 @@ Tron Hra
 1.12.1 ... Game Over Label, Limit of Score = 5 + Fixes
 1.12.2 ... Fixes
 1.12.3 ... Fixes
+1.13.1 ... Boundaries dont kill you, Increase Bonus increases longer tail + Fixes

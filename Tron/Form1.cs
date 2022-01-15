@@ -34,11 +34,11 @@ namespace Tron {
         //Epic Enums
 
         enum Position {
-            Left, Right, Up, Down, Null, UL, UR, DL, DR
+            Left, Right, Up, Down, Null
         }
 
         enum Position1 {
-            W, A, S, D, Null, WA, WD, SA, SD
+            W, A, S, D, Null
         }
 
         private Position position;
@@ -787,19 +787,19 @@ namespace Tron {
             }
 
             if (player1.Location.Y < boundary.Up) {
-                Score2();
+                player1 = new Player(Brushes.Red, new Size(13, 13), new Point(player1.Location.X, pbCanvas.Height - player1.Size.Height), 3);
             }
 
             if (player1.Location.Y > (boundary.Down - player2.Size.Height)) {
-                Score2();
+                player1 = new Player(Brushes.Red, new Size(13, 13), new Point(player1.Location.X, 0), 3);
             }
 
             if (player1.Location.X < boundary.Left) {
-                Score2();
+                player1 = new Player(Brushes.Red, new Size(13, 13), new Point(pbCanvas.Width - player1.Size.Width, player1.Location.Y), 3);
             }
 
             if (player1.Location.X > (boundary.Right - player1.Size.Width)) {
-                Score2();
+                player1 = new Player(Brushes.Red, new Size(13, 13), new Point(0, player1.Location.Y), 3);
             }
 
             //Collision for Player2
@@ -817,19 +817,19 @@ namespace Tron {
             }
 
             if (player2.Location.Y < boundary.Up) {
-                Score1();
+                player2 = new Player(Brushes.Blue, new Size(13, 13), new Point(player2.Location.X, pbCanvas.Height - player2.Size.Height), 3);
             }
 
             if (player2.Location.Y > (boundary.Down - player2.Size.Height)) {
-                Score1();
+                player2 = new Player(Brushes.Blue, new Size(13, 13), new Point(player2.Location.X, 0), 3);
             }
 
             if (player2.Location.X < boundary.Left) {
-                Score1();
+                player2 = new Player(Brushes.Blue, new Size(13, 13), new Point(pbCanvas.Width - player2.Size.Width, player2.Location.Y), 3);
             }
 
             if (player2.Location.X > (boundary.Right - player2.Size.Width)) {
-                Score1();
+                player2 = new Player(Brushes.Blue, new Size(13, 13), new Point(0, player2.Location.Y), 3);
             }
 
             //Speed Bonus
@@ -1048,7 +1048,7 @@ namespace Tron {
 
             foreach (var item in bonus1IncreaseEffect) {
                 if (item is Bonus) {
-                    redCount += 20;
+                    redCount += 100;
 
                     bonusIncrease.Remove(item);
                 }
@@ -1058,7 +1058,7 @@ namespace Tron {
 
             foreach (var item in bonus2IncreaseEffect) {
                 if (item is Bonus) {
-                    blueCount += 20;
+                    blueCount += 100;
 
                     bonusIncrease.Remove(item);
                 }
