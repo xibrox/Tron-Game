@@ -22,8 +22,8 @@ namespace Tron {
         Random rnd = new Random();
         int redScore = 0;
         int blueScore = 0;
-        int redCount = 252;
-        int blueCount = 252;
+        int redCount = 202;
+        int blueCount = 202;
         int secSpeed1 = 5;
         int secSpeed2 = 5;
         int secSlow1 = 5;
