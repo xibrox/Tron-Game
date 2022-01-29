@@ -51,6 +51,8 @@ namespace Tron {
             this.TimerLabelInvert2 = new System.Windows.Forms.Timer(this.components);
             this.GameOver = new System.Windows.Forms.Label();
             this.TimerIncreaseBonus = new System.Windows.Forms.Timer(this.components);
+            this.Timer3 = new System.Windows.Forms.Timer(this.components);
+            this.Timer4 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -121,8 +123,6 @@ namespace Tron {
             // LengthSpeed1
             // 
             this.LengthSpeed1.AutoSize = true;
-            this.LengthSpeed1.BackColor = System.Drawing.SystemColors.ControlText;
-            this.LengthSpeed1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.LengthSpeed1.Location = new System.Drawing.Point(12, 426);
             this.LengthSpeed1.Name = "LengthSpeed1";
             this.LengthSpeed1.Size = new System.Drawing.Size(39, 15);
@@ -132,8 +132,6 @@ namespace Tron {
             // LengthSpeed2
             // 
             this.LengthSpeed2.AutoSize = true;
-            this.LengthSpeed2.BackColor = System.Drawing.SystemColors.ControlText;
-            this.LengthSpeed2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.LengthSpeed2.Location = new System.Drawing.Point(746, 426);
             this.LengthSpeed2.Name = "LengthSpeed2";
             this.LengthSpeed2.Size = new System.Drawing.Size(42, 15);
@@ -163,8 +161,6 @@ namespace Tron {
             // LengthSlow2
             // 
             this.LengthSlow2.AutoSize = true;
-            this.LengthSlow2.BackColor = System.Drawing.SystemColors.ControlText;
-            this.LengthSlow2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.LengthSlow2.Location = new System.Drawing.Point(698, 426);
             this.LengthSlow2.Name = "LengthSlow2";
             this.LengthSlow2.Size = new System.Drawing.Size(42, 15);
@@ -174,8 +170,6 @@ namespace Tron {
             // LengthSlow1
             // 
             this.LengthSlow1.AutoSize = true;
-            this.LengthSlow1.BackColor = System.Drawing.SystemColors.ControlText;
-            this.LengthSlow1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.LengthSlow1.Location = new System.Drawing.Point(57, 426);
             this.LengthSlow1.Name = "LengthSlow1";
             this.LengthSlow1.Size = new System.Drawing.Size(39, 15);
@@ -185,8 +179,6 @@ namespace Tron {
             // LengthInvert1
             // 
             this.LengthInvert1.AutoSize = true;
-            this.LengthInvert1.BackColor = System.Drawing.SystemColors.ControlText;
-            this.LengthInvert1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.LengthInvert1.Location = new System.Drawing.Point(102, 426);
             this.LengthInvert1.Name = "LengthInvert1";
             this.LengthInvert1.Size = new System.Drawing.Size(42, 15);
@@ -196,8 +188,6 @@ namespace Tron {
             // LengthInvert2
             // 
             this.LengthInvert2.AutoSize = true;
-            this.LengthInvert2.BackColor = System.Drawing.SystemColors.ControlText;
-            this.LengthInvert2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.LengthInvert2.Location = new System.Drawing.Point(653, 426);
             this.LengthInvert2.Name = "LengthInvert2";
             this.LengthInvert2.Size = new System.Drawing.Size(39, 15);
@@ -217,8 +207,6 @@ namespace Tron {
             // GameOver
             // 
             this.GameOver.AutoSize = true;
-            this.GameOver.BackColor = System.Drawing.SystemColors.ControlText;
-            this.GameOver.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.GameOver.Location = new System.Drawing.Point(381, 218);
             this.GameOver.Name = "GameOver";
             this.GameOver.Size = new System.Drawing.Size(66, 15);
@@ -229,6 +217,16 @@ namespace Tron {
             // 
             this.TimerIncreaseBonus.Interval = 5000;
             this.TimerIncreaseBonus.Tick += new System.EventHandler(this.TimerIncreaseBonus_Tick);
+            // 
+            // Timer3
+            // 
+            this.Timer3.Interval = 10;
+            this.Timer3.Tick += new System.EventHandler(this.Timer3_Tick);
+            // 
+            // Timer4
+            // 
+            this.Timer4.Interval = 1000;
+            this.Timer4.Tick += new System.EventHandler(this.Timer4_Tick);
             // 
             // Tron
             // 
@@ -284,6 +282,8 @@ namespace Tron {
         private System.Windows.Forms.Timer TimerLabelInvert2;
         private System.Windows.Forms.Label GameOver;
         private System.Windows.Forms.Timer TimerIncreaseBonus;
+        private System.Windows.Forms.Timer Timer3;
+        private System.Windows.Forms.Timer Timer4;
     }
 }
 

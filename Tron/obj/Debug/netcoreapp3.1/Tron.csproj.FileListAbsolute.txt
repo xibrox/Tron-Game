@@ -46,3 +46,4 @@ C:\Users\baton\source\repos\Tron\Tron-Game\Tron\obj\Debug\netcoreapp3.1\Tron.csp
 C:\Users\baton\source\repos\Tron\Tron-Game\Tron\obj\Debug\netcoreapp3.1\Tron.dll
 C:\Users\baton\source\repos\Tron\Tron-Game\Tron\obj\Debug\netcoreapp3.1\Tron.pdb
 C:\Users\baton\source\repos\Tron\Tron-Game\Tron\obj\Debug\netcoreapp3.1\Tron.genruntimeconfig.cache
+C:\Users\baton\source\repos\Tron\Tron-Game\Tron\obj\Debug\netcoreapp3.1\Tron.Form2.resources

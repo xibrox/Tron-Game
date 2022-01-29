@@ -22,14 +22,15 @@ namespace Tron {
         Random rnd = new Random();
         int redScore = 0;
         int blueScore = 0;
-        int redCount = 202;
-        int blueCount = 202;
+        int redCount = 200;
+        int blueCount = 200;
         int secSpeed1 = 5;
         int secSpeed2 = 5;
         int secSlow1 = 5;
         int secSlow2 = 5;
         int secInvert1 = 5;
         int secInvert2 = 5;
+        int position1R;
 
         //Epic Enums
 
@@ -64,8 +65,6 @@ namespace Tron {
             this.pbCanvas.Location = new Point(0, 0);
             this.pbCanvas.BackColor = Color.FromArgb(0, 0, 0);
             this.pbCanvas.Size = this.Size;
-
-            Cursor.Hide();
         }
 
         //Spawn Players, Players Tails and Bonuses
@@ -214,8 +213,17 @@ namespace Tron {
             if (Keys.Space == e.KeyCode) {
                 if (position == Position.Null && position1 == Position1.Null) {
                     position = Position.Left;
-                    position1 = Position1.D;
+                    if (Form2.Bot == true) {
+                        position1R = Form2.PositionD;
+                        Timer3.Enabled = true;
+                        Timer4.Enabled = true;
+                    }
+
+                    if (Form2.Bot == false) {
+                        position1R = Form2.Position1D;
+                    }
                 }
+
                 StartGame();
             }
 
@@ -263,43 +271,43 @@ namespace Tron {
 
             //Movement for Player2
 
-            if (Keys.W == e.KeyCode) {
-                if (position1 == Position1.Null) {
+            if (Form2.Bot == false && Keys.W == e.KeyCode) {
+                if (position1R == 0) {
                     return;
                 }
 
-                if (position1 != Position1.S) {
-                    position1 = Position1.W;
+                if (position1R != Form2.Position1S) {
+                    position1R = Form2.Position1W;
                 }
             }
 
-            if (Keys.A == e.KeyCode) {
-                if (position1 == Position1.Null) {
+            if (Form2.Bot == false && Keys.A == e.KeyCode) {
+                if (position1R == 0) {
                     return;
                 }
 
-                if (position1 != Position1.D) {
-                    position1 = Position1.A;
+                if (position1R != Form2.Position1D) {
+                    position1R = Form2.Position1A;
                 }
             }
 
-            if (Keys.S == e.KeyCode) {
-                if (position1 == Position1.Null) {
+            if (Form2.Bot == false && Keys.S == e.KeyCode) {
+                if (position1R == 0) {
                     return;
                 }
 
-                if (position1 != Position1.W) {
-                    position1 = Position1.S;
+                if (position1R != Form2.Position1W) {
+                    position1R = Form2.Position1S;
                 }
             }
 
-            if (Keys.D == e.KeyCode) {
-                if (position1 == Position1.Null) {
+            if (Form2.Bot == false && Keys.D == e.KeyCode) {
+                if (position1R == 0) {
                     return;
                 }
 
-                if (position1 != Position1.A) {
-                    position1 = Position1.D;
+                if (position1R != Form2.Position1A) {
+                    position1R = Form2.Position1D;
                 }
             }
         }
@@ -338,23 +346,106 @@ namespace Tron {
         private void Timer1_Tick(object sender, EventArgs e) {
             var direction = new Point();
 
-            if (position1 == Position1.W) {
+            if (Form2.Bot == false && position1R == Form2.Position1W) {
                 direction.Y--;
             }
 
-            if (position1 == Position1.S) {
+            if (Form2.Bot == false && position1R == Form2.Position1S) {
                 direction.Y++;
             }
 
-            if (position1 == Position1.A) {
+            if (Form2.Bot == false && position1R == Form2.Position1A) {
                 direction.X--;
             }
 
-            if (position1 == Position1.D) {
+            if (Form2.Bot == false && position1R == Form2.Position1D) {
                 direction.X++;
             }
 
             SetPlayer2Tail();
+
+            player2.Move(direction);
+
+            HandleCollision();
+
+            this.pbCanvas.Refresh();
+        }
+
+        //Bot
+
+        private void Timer3_Tick(object sender, EventArgs e) {
+            var direction = new Point();
+
+            if (Form2.Bot == true && position1R == Form2.PositionW) {
+                direction.Y--;
+            }
+
+            if (Form2.Bot == true && position1R == Form2.PositionS) {
+                direction.Y++;
+            }
+
+            if (Form2.Bot == true && position1R == Form2.PositionA) {
+                direction.X--;
+            }
+
+            if (Form2.Bot == true && position1R == Form2.PositionD) {
+                direction.X++;
+            }
+
+            player2.Move(direction);
+
+            HandleCollision();
+
+            this.pbCanvas.Refresh();
+        }
+
+        //Bot Turn
+
+        private void Timer4_Tick(object sender, EventArgs e) {
+            var direction = new Point();
+
+            Random rnd = new Random();
+            var num = rnd.Next(0, 2);
+
+            if (Form2.Bot == true && position1R == Form2.PositionS) {
+                if (num == 0) {
+                    position1R = Form2.PositionA;
+                }
+
+                else if (num == 1) {
+                    position1R = Form2.PositionD;
+                }
+            }
+
+            else if (Form2.Bot == true && position1R == Form2.PositionW) {
+                if (num == 0) {
+                    position1R = Form2.PositionA;
+                }
+
+                else if (num == 1) {
+                    position1R = Form2.PositionD;
+                }
+            }
+
+            else if (Form2.Bot == true && position1R == Form2.PositionA) {
+                if (num == 0) {
+                    position1R = Form2.PositionW;
+                }
+
+                else if (num == 1) {
+                    position1R = Form2.PositionS;
+                }
+            }
+
+            else if (Form2.Bot == true && position1R == Form2.PositionD) {
+                if (num == 0) {
+                    position1R = Form2.PositionW;
+                }
+
+                else if (num == 1) {
+                    position1R = Form2.PositionS;
+                }
+            }
 
             player2.Move(direction);
 
@@ -400,19 +491,19 @@ namespace Tron {
         private void Timer1Inverted_Tick(object sender, EventArgs e) {
             var direction = new Point();
 
-            if (position1 == Position1.W) {
+            if (Form2.Bot == false && position1R == Form2.Position1W) {
                 direction.Y++;
             }
 
-            if (position1 == Position1.S) {
+            if (Form2.Bot == false && position1R == Form2.Position1S) {
                 direction.Y--;
             }
 
-            if (position1 == Position1.A) {
+            if (Form2.Bot == false && position1R == Form2.Position1A) {
                 direction.X++;
             }
 
-            if (position1 == Position1.D) {
+            if (Form2.Bot == false && position1R == Form2.Position1D) {
                 direction.X--;
             }
 
@@ -431,13 +522,11 @@ namespace Tron {
 
         private void Timer2_Tick(object sender, EventArgs e) {
             if (players1.Count > redCount) {
-                SetPlayer1Tail();
-                players1.RemoveRange(0, 2);
+                players1.RemoveRange(0, 1);
             }
 
             if (players2.Count > blueCount) {
-                SetPlayer2Tail();
-                players2.RemoveRange(0, 2);
+                players2.RemoveRange(0, 1);
             }
         }
 
@@ -575,33 +664,33 @@ namespace Tron {
             }
 
             if (Timer1Inverted.Enabled == true) {
-                if (Position1.W == position1) {
-                    position1 = Position1.S;
-                    if (position1 == Position1.S) {
+                if (position1R == Form2.Position1W) {
+                    position1R = Form2.Position1S;
+                    if (position1R == Form2.Position1S) {
                         Timer1Inverted.Enabled = false;
                         Timer1.Enabled = true;
                     }
                 }
 
-                else if (Position1.S == position1) {
-                    position1 = Position1.W;
-                    if (position1 == Position1.W) {
+                else if (position1R == Form2.Position1S) {
+                    position1R = Form2.Position1W;
+                    if (position1R == Form2.Position1W) {
                         Timer1Inverted.Enabled = false;
                         Timer1.Enabled = true;
                     }
                 }
 
-                else if (Position1.A == position1) {
-                    position1 = Position1.D;
-                    if (position1 == Position1.D) {
+                else if (position1R == Form2.Position1A) {
+                    position1R = Form2.Position1D;
+                    if (position1R == Form2.Position1D) {
                         Timer1Inverted.Enabled = false;
                         Timer1.Enabled = true;
                     }
                 }
 
-                else if (Position1.D == position1) {
-                    position1 = Position1.A;
-                    if (position1 == Position1.A) {
+                else if (position1R == Form2.Position1D) {
+                    position1R = Form2.Position1A;
+                    if (position1R == Form2.Position1A) {
                         Timer1Inverted.Enabled = false;
                         Timer1.Enabled = true;
                     }
@@ -679,14 +768,21 @@ namespace Tron {
             players2.Clear();
             SetPlayer1();
             SetPlayer2();
-            position = Position.Null;
-            position1 = Position1.Null;
+            position = Position.Left;
+            if (Form2.Bot == true) {
+                position1R = Form2.PositionD;
+                Timer3.Enabled = true;
+                Timer4.Enabled = true;
+            }
+            if (Form2.Bot == false) {
+                position1R = Form2.Position1D;
+                Timer.Enabled = true;
+                Timer1.Enabled = true;
+            }
             bonusSlow.Clear();
             bonusSpeed.Clear();
             bonusInvert.Clear();
             bonusIncrease.Clear();
-            Timer.Enabled = false;
-            Timer1.Enabled = false;
             TimerBonus.Enabled = false;
             TimerSlowBonus.Enabled = false;
             TimerInvertBonus.Enabled = false;
@@ -700,16 +796,14 @@ namespace Tron {
             LengthInvert1.Visible = false;
             LengthInvert2.Visible = false;
 
-            redCount = 252;
-            blueCount = 252;
+            redCount = 200;
+            blueCount = 200;
         }
 
         //Score for Player1
 
         private void Score1() {
-            if (redScore < 5) {
-                redScore++;
-            }
+            redScore++;
 
             if (redScore == 5 && blueScore == 5) {
                 redScore = 0;
@@ -718,12 +812,15 @@ namespace Tron {
                 GameOver.Text = "                 Tie\nPress Space To Continue";
             }
 
-            if (redScore == 5 || blueScore == 5) {
+            else if (redScore == 5) {
                 redScore = 0;
                 blueScore = 0;
                 GameOver.Visible = true;
                 GameOver.Text = "      Red Player Won\nPress Space To Continue";
             }
+
+            Timer3.Enabled = false;
+            Timer4.Enabled = false;
 
             EndGameScore();
         }
@@ -731,9 +828,7 @@ namespace Tron {
         //Score for Player2
 
         private void Score2() {
-            if (blueScore < 5) {
-                blueScore++;
-            }
+            blueScore++;
 
             if (redScore == 5 && blueScore == 5) {
                 redScore = 0;
@@ -742,12 +837,15 @@ namespace Tron {
                 GameOver.Text = "                 Tie\nPress Space To Continue";
             }
 
-            if (redScore == 5 || blueScore == 5) {
+            else if (blueScore == 5) {
                 redScore = 0;
                 blueScore = 0;
                 GameOver.Visible = true;
                 GameOver.Text = "      Blue Player Won\nPress Space To Continue";
             }
+
+            Timer3.Enabled = false;
+            Timer4.Enabled = false;
 
             EndGameScore();
         }
@@ -952,36 +1050,36 @@ namespace Tron {
 
             foreach (var item in bonus1InvertEffect) {
                 if (item is Bonus) {
-                    if (Position1.W == position1) {
-                        position1 = Position1.S;
-                        if (position1 == Position1.S) {
+                    if (position1R == Form2.Position1W) {
+                        position1R = Form2.Position1S;
+                        if (position1R == Form2.Position1S) {
                             TimerInvertBonusLength.Enabled = true;
                             Timer1Inverted.Enabled = true;
                             Timer1.Enabled = false;
                         }
                     }
 
-                    else if (Position1.S == position1) {
-                        position1 = Position1.W;
-                        if (position1 == Position1.W) {
+                    else if (position1R == Form2.Position1S) {
+                        position1R = Form2.Position1W;
+                        if (position1R == Form2.Position1W) {
                             TimerInvertBonusLength.Enabled = true;
                             Timer1Inverted.Enabled = true;
                             Timer1.Enabled = false;
                         }
                     }
 
-                    else if (Position1.A == position1) {
-                        position1 = Position1.D;
-                        if (position1 == Position1.D) {
+                    else if (position1R == Form2.Position1A) {
+                        position1R = Form2.Position1D;
+                        if (position1R == Form2.Position1D) {
                             TimerInvertBonusLength.Enabled = true;
                             Timer1Inverted.Enabled = true;
                             Timer1.Enabled = false;
                         }
                     }
 
-                    else if (Position1.D == position1) {
-                        position1 = Position1.A;
-                        if (position1 == Position1.A) {
+                    else if (position1R == Form2.Position1D) {
+                        position1R = Form2.Position1A;
+                        if (position1R == Form2.Position1A) {
                             TimerInvertBonusLength.Enabled = true;
                             Timer1Inverted.Enabled = true;
                             Timer1.Enabled = false;
@@ -1110,6 +1208,34 @@ namespace Tron {
             LengthInvert2.BackColor = Color.Black;
             LengthInvert2.ForeColor = Color.Aqua;
             LengthInvert2.Font = new Font("Arial", 20);
+
+            Timer4.Interval = 3000;
+
+            if (this.Visible == false) {
+                SetPlayer1();
+                SetPlayer2();
+                redScore = 0;
+                blueScore = 0;
+                redCount = 202;
+                blueCount = 202;
+
+                position = Position.Null;
+                position1R = 0;
+
+                players1.Clear();
+                players2.Clear();
+                bonusIncrease.Clear();
+                bonusInvert.Clear();
+                bonusSlow.Clear();
+                bonusSpeed.Clear();
+
+                TimerBonus.Enabled = false;
+                TimerSlowBonus.Enabled = false;
+                TimerIncreaseBonus.Enabled = false;
+                TimerInvertBonus.Enabled = false;
+                Timer3.Enabled = false;
+                Timer4.Enabled = false;
+            }
         }
     }
 }
