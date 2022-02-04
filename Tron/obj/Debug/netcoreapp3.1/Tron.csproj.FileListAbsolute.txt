@@ -36,8 +36,8 @@ C:\Users\baton\source\repos\Tron\Tron-Game\Tron\bin\Debug\netcoreapp3.1\Tron.run
 C:\Users\baton\source\repos\Tron\Tron-Game\Tron\bin\Debug\netcoreapp3.1\Tron.runtimeconfig.dev.json
 C:\Users\baton\source\repos\Tron\Tron-Game\Tron\bin\Debug\netcoreapp3.1\Tron.dll
 C:\Users\baton\source\repos\Tron\Tron-Game\Tron\bin\Debug\netcoreapp3.1\Tron.pdb
-C:\Users\baton\source\repos\Tron\Tron-Game\Tron\obj\Debug\netcoreapp3.1\Tron.csproj.AssemblyReference.cache
 C:\Users\baton\source\repos\Tron\Tron-Game\Tron\obj\Debug\netcoreapp3.1\Tron.Tron.resources
+C:\Users\baton\source\repos\Tron\Tron-Game\Tron\obj\Debug\netcoreapp3.1\Tron.Form2.resources
 C:\Users\baton\source\repos\Tron\Tron-Game\Tron\obj\Debug\netcoreapp3.1\Tron.csproj.GenerateResource.cache
 C:\Users\baton\source\repos\Tron\Tron-Game\Tron\obj\Debug\netcoreapp3.1\Tron.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\baton\source\repos\Tron\Tron-Game\Tron\obj\Debug\netcoreapp3.1\Tron.AssemblyInfoInputs.cache
@@ -46,4 +46,4 @@ C:\Users\baton\source\repos\Tron\Tron-Game\Tron\obj\Debug\netcoreapp3.1\Tron.csp
 C:\Users\baton\source\repos\Tron\Tron-Game\Tron\obj\Debug\netcoreapp3.1\Tron.dll
 C:\Users\baton\source\repos\Tron\Tron-Game\Tron\obj\Debug\netcoreapp3.1\Tron.pdb
 C:\Users\baton\source\repos\Tron\Tron-Game\Tron\obj\Debug\netcoreapp3.1\Tron.genruntimeconfig.cache
-C:\Users\baton\source\repos\Tron\Tron-Game\Tron\obj\Debug\netcoreapp3.1\Tron.Form2.resources
+C:\Users\baton\source\repos\Tron\Tron-Game\Tron\obj\Debug\netcoreapp3.1\Tron.csproj.AssemblyReference.cache

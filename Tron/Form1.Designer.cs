@@ -53,6 +53,7 @@ namespace Tron {
             this.TimerIncreaseBonus = new System.Windows.Forms.Timer(this.components);
             this.Timer3 = new System.Windows.Forms.Timer(this.components);
             this.Timer4 = new System.Windows.Forms.Timer(this.components);
+            this.TimerP2Turn = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,7 +61,7 @@ namespace Tron {
             // 
             this.pbCanvas.Location = new System.Drawing.Point(12, 12);
             this.pbCanvas.Name = "pbCanvas";
-            this.pbCanvas.Size = new System.Drawing.Size(100, 50);
+            this.pbCanvas.Size = new System.Drawing.Size(142, 70);
             this.pbCanvas.TabIndex = 0;
             this.pbCanvas.TabStop = false;
             this.pbCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.pbCanvas_Paint);
@@ -225,8 +226,13 @@ namespace Tron {
             // 
             // Timer4
             // 
-            this.Timer4.Interval = 1000;
+            this.Timer4.Interval = 150;
             this.Timer4.Tick += new System.EventHandler(this.Timer4_Tick);
+            // 
+            // TimerP2Turn
+            // 
+            this.TimerP2Turn.Interval = 10;
+            this.TimerP2Turn.Tick += new System.EventHandler(this.TimerP2Turn_Tick);
             // 
             // Tron
             // 
@@ -241,11 +247,9 @@ namespace Tron {
             this.Controls.Add(this.LengthSpeed2);
             this.Controls.Add(this.LengthSpeed1);
             this.Controls.Add(this.pbCanvas);
-            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Tron";
             this.Text = "Tron";
-            this.TopMost = true;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pbCanvas)).EndInit();
@@ -284,6 +288,7 @@ namespace Tron {
         private System.Windows.Forms.Timer TimerIncreaseBonus;
         private System.Windows.Forms.Timer Timer3;
         private System.Windows.Forms.Timer Timer4;
+        private System.Windows.Forms.Timer TimerP2Turn;
     }
 }
 

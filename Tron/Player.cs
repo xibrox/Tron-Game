@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
+﻿using System.Drawing;
 
 namespace Tron {
     class Player {
+        public Pen Pen { get; set; }
+
         public Brush Brush { get; set; }
         public Size Size { get; set; }
         public Point Location { get; set; }
-        public Rectangle Rectangle { 
+        public Rectangle Rectangle {
             get {
                 return new Rectangle(Location, Size);
-            } 
+            }
         }
         public int Speed { get; set; }
 
-        public Player(Brush brush, Size size , Point location, int speed) {
+        public Player(Brush brush, Size size, Point location, int speed) {
             Brush = brush;
             Size = size;
             Location = location;

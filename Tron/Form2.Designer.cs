@@ -27,6 +27,7 @@ namespace Tron {
             this.TronLabel = new System.Windows.Forms.Label();
             this.Player1 = new System.Windows.Forms.Button();
             this.Player2 = new System.Windows.Forms.Button();
+            this.versionLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // TronLabel
@@ -47,6 +48,8 @@ namespace Tron {
             this.Player1.Text = "Player1";
             this.Player1.UseVisualStyleBackColor = true;
             this.Player1.Click += new System.EventHandler(this.Player1_Click);
+            this.Player1.MouseEnter += new System.EventHandler(this.Player1_MouseEnter);
+            this.Player1.MouseLeave += new System.EventHandler(this.Player1_MouseLeave);
             // 
             // Player2
             // 
@@ -57,12 +60,24 @@ namespace Tron {
             this.Player2.Text = "Player2";
             this.Player2.UseVisualStyleBackColor = true;
             this.Player2.Click += new System.EventHandler(this.Player2_Click);
+            this.Player2.MouseEnter += new System.EventHandler(this.Player2_MouseEnter);
+            this.Player2.MouseLeave += new System.EventHandler(this.Player2_MouseLeave);
+            // 
+            // versionLabel
+            // 
+            this.versionLabel.AutoSize = true;
+            this.versionLabel.Location = new System.Drawing.Point(13, 423);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(73, 15);
+            this.versionLabel.TabIndex = 3;
+            this.versionLabel.Text = "versionLabel";
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.Player2);
             this.Controls.Add(this.Player1);
             this.Controls.Add(this.TronLabel);
@@ -79,5 +94,6 @@ namespace Tron {
         private System.Windows.Forms.Label TronLabel;
         private System.Windows.Forms.Button Player1;
         private System.Windows.Forms.Button Player2;
+        private System.Windows.Forms.Label versionLabel;
     }
 }

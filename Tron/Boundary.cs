@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Tron {
+﻿namespace Tron {
     class Boundary {
         public int Left { get; set; }
         public int Right { get; set; }
