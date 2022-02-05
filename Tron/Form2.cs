@@ -68,7 +68,7 @@ namespace Tron {
             versionLabel.ForeColor = Color.FromArgb(179, 179, 179);
             versionLabel.Font = new Font("Ariel", 15);
             versionLabel.Location = new Point(10, Size.Height - versionLabel.Size.Height * 3);
-            versionLabel.Text = "v1.2.1";
+            versionLabel.Text = "v1.2.2";
 
             Player1.Text = "One Player";
             Player1.ForeColor = Color.FromArgb(179, 179, 179);

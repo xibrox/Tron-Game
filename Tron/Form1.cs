@@ -590,88 +590,152 @@ namespace Tron {
         private void TimerP2Turn_Tick(object sender, EventArgs e) {
             foreach (var s in bonusSpeed) {
                 if (player2.Location.Y <= s.Location.Y + s.Size.Height - 3 && player2.Location.Y >= s.Location.Y) {
-                    if (player2.Location.X < s.Location.X) {
+                    if (player2.Location.X < s.Location.X && position1R == Form2.PositionW || position1R == Form2.PositionS) {
                         position1R = Form2.PositionD;
                     }
 
-                    if (player2.Location.X > s.Location.X) {
+                    else if (player2.Location.X < s.Location.X && position1R == Form2.PositionD) {
+                        return;
+                    }
+
+                    if (player2.Location.X > s.Location.X && position1R == Form2.PositionW || position1R == Form2.PositionS) {
                         position1R = Form2.PositionA;
+                    }
+
+                    else if (player2.Location.X > s.Location.X && position1R == Form2.PositionA) {
+                        return;
                     }
                 }
 
                 if (player2.Location.X <= s.Location.X + s.Size.Width - 3 && player2.Location.X >= s.Location.X) {
-                    if (player2.Location.Y < s.Location.Y) {
+                    if (player2.Location.Y < s.Location.Y && position1R == Form2.PositionA || position1R == Form2.PositionD) {
                         position1R = Form2.PositionS;
                     }
 
-                    if (player2.Location.Y > s.Location.Y) {
+                    else if (player2.Location.X < s.Location.X && position1R == Form2.PositionS) {
+                        return;
+                    }
+
+                    if (player2.Location.Y > s.Location.Y && position1R == Form2.PositionA || position1R == Form2.PositionD) {
                         position1R = Form2.PositionW;
+                    }
+
+                    else if (player2.Location.X > s.Location.X && position1R == Form2.PositionW) {
+                        return;
                     }
                 }
             }
 
             foreach (var s in bonusSlow) {
                 if (player2.Location.Y <= s.Location.Y + s.Size.Height - 3 && player2.Location.Y >= s.Location.Y) {
-                    if (player2.Location.X < s.Location.X) {
+                    if (player2.Location.X < s.Location.X && position1R == Form2.PositionW || position1R == Form2.PositionS) {
                         position1R = Form2.PositionD;
                     }
 
-                    if (player2.Location.X > s.Location.X) {
+                    else if (player2.Location.X < s.Location.X && position1R == Form2.PositionD) {
+                        return;
+                    }
+
+                    if (player2.Location.X > s.Location.X && position1R == Form2.PositionW || position1R == Form2.PositionS) {
                         position1R = Form2.PositionA;
+                    }
+
+                    else if (player2.Location.X > s.Location.X && position1R == Form2.PositionA) {
+                        return;
                     }
                 }
 
                 if (player2.Location.X <= s.Location.X + s.Size.Width - 3 && player2.Location.X >= s.Location.X) {
-                    if (player2.Location.Y < s.Location.Y) {
+                    if (player2.Location.Y < s.Location.Y && position1R == Form2.PositionA || position1R == Form2.PositionD) {
                         position1R = Form2.PositionS;
                     }
 
-                    if (player2.Location.Y > s.Location.Y) {
+                    else if (player2.Location.X < s.Location.X && position1R == Form2.PositionS) {
+                        return;
+                    }
+
+                    if (player2.Location.Y > s.Location.Y && position1R == Form2.PositionA || position1R == Form2.PositionD) {
                         position1R = Form2.PositionW;
+                    }
+
+                    else if (player2.Location.X > s.Location.X && position1R == Form2.PositionW) {
+                        return;
                     }
                 }
             }
 
             foreach (var s in bonusIncrease) {
                 if (player2.Location.Y <= s.Location.Y + s.Size.Height - 3 && player2.Location.Y >= s.Location.Y) {
-                    if (player2.Location.X < s.Location.X) {
+                    if (player2.Location.X < s.Location.X && position1R == Form2.PositionW || position1R == Form2.PositionS) {
                         position1R = Form2.PositionD;
                     }
 
-                    if (player2.Location.X > s.Location.X) {
+                    else if (player2.Location.X < s.Location.X && position1R == Form2.PositionD) {
+                        return;
+                    }
+
+                    if (player2.Location.X > s.Location.X && position1R == Form2.PositionW || position1R == Form2.PositionS) {
                         position1R = Form2.PositionA;
+                    }
+
+                    else if (player2.Location.X > s.Location.X && position1R == Form2.PositionA) {
+                        return;
                     }
                 }
 
                 if (player2.Location.X <= s.Location.X + s.Size.Width - 3 && player2.Location.X >= s.Location.X) {
-                    if (player2.Location.Y < s.Location.Y) {
+                    if (player2.Location.Y < s.Location.Y && position1R == Form2.PositionA || position1R == Form2.PositionD) {
                         position1R = Form2.PositionS;
                     }
 
-                    if (player2.Location.Y > s.Location.Y) {
+                    else if (player2.Location.X < s.Location.X && position1R == Form2.PositionS) {
+                        return;
+                    }
+
+                    if (player2.Location.Y > s.Location.Y && position1R == Form2.PositionA || position1R == Form2.PositionD) {
                         position1R = Form2.PositionW;
+                    }
+
+                    else if (player2.Location.X > s.Location.X && position1R == Form2.PositionW) {
+                        return;
                     }
                 }
             }
 
             foreach (var s in bonusInvert) {
                 if (player2.Location.Y <= s.Location.Y + s.Size.Height - 3 && player2.Location.Y >= s.Location.Y) {
-                    if (player2.Location.X < s.Location.X) {
+                    if (player2.Location.X < s.Location.X && position1R == Form2.PositionW || position1R == Form2.PositionS) {
                         position1R = Form2.PositionD;
                     }
 
-                    if (player2.Location.X > s.Location.X) {
+                    else if (player2.Location.X < s.Location.X && position1R == Form2.PositionD) {
+                        return;
+                    }
+
+                    if (player2.Location.X > s.Location.X && position1R == Form2.PositionW || position1R == Form2.PositionS) {
                         position1R = Form2.PositionA;
+                    }
+
+                    else if (player2.Location.X > s.Location.X && position1R == Form2.PositionA) {
+                        return;
                     }
                 }
 
                 if (player2.Location.X <= s.Location.X + s.Size.Width - 3 && player2.Location.X >= s.Location.X) {
-                    if (player2.Location.Y < s.Location.Y) {
+                    if (player2.Location.Y < s.Location.Y && position1R == Form2.PositionA || position1R == Form2.PositionD) {
                         position1R = Form2.PositionS;
                     }
 
-                    if (player2.Location.Y > s.Location.Y) {
+                    else if (player2.Location.X < s.Location.X && position1R == Form2.PositionS) {
+                        return;
+                    }
+
+                    if (player2.Location.Y > s.Location.Y && position1R == Form2.PositionA || position1R == Form2.PositionD) {
                         position1R = Form2.PositionW;
+                    }
+
+                    else if (player2.Location.X > s.Location.X && position1R == Form2.PositionW) {
+                        return;
                     }
                 }
             }
